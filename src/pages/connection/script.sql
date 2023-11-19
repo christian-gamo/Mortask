@@ -3,7 +3,7 @@ CREATE TABLE `users` (
 	`user_fname` varchar(50) NOT NULL,
 	`user_lname` varchar(50) NOT NULL,
 	`user_email` varchar(50) NOT NULL UNIQUE,
-	`user_password` varchar(50) NOT NULL,
+	`user_password` varchar(255) NOT NULL,
 	`user_status` BOOLEAN NOT NULL DEFAULT false,
 	PRIMARY KEY (`user_id`)
 );
