@@ -2,15 +2,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faMoon,
     faStar,
-    faRightFromBracket,
     faCalendar,
     faPlus,
     faListUl,
     faBorderAll,
-    faCheckCircle,
     faSignOutAlt,
-    faClipboard,
-    faSearch,
 } from '@fortawesome/free-solid-svg-icons';
 
 function NavBar() {
@@ -39,7 +35,7 @@ function NavBar() {
                 data-drawer-toggle="default-sidebar"
                 aria-controls="default-sidebar"
                 type="button"
-                className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
             >
                 <span className="sr-only">Open sidebar</span>
                 <svg
@@ -100,18 +96,7 @@ function NavBar() {
                                 <span className="ml-1 font-bold text-sm">Planned</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="#" className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                                <FontAwesomeIcon icon={faCheckCircle} className="w-6 h-6 text-gray-400 mr-2" />
-                                <span className="ml-1 font-bold text-sm">Completed</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                                <FontAwesomeIcon icon={faClipboard} className="w-6 h-6 text-gray-400 mr-2" />
-                                <span className="ml-1 font-bold text-sm">Uncompleted</span>
-                            </a>
-                        </li>
+
                     </ul>
                     <hr className="my-4 border-t border-gray-700" />
                     <p className="mt-2 text-sm font-bold text-white-600">My To-Dos</p>
@@ -139,35 +124,16 @@ function NavBar() {
                             </a>
                         </li>
                     </ul>
-                </div>
-                <div className="fixed bottom-0 left-0 w-full bg-white  dark:bg-gray-800 dark:border-gray-700 p-3 flex justify-center">
-                    <button
-                        className="py-2 px-10 my-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 flex items-center font-bold text-sm"
-                    >
-                        <FontAwesomeIcon icon={faPlus} className="w-5 h-5 text-gray-500 mr-2" />
-                        New To-Do
-                    </button>
+                    <div className="relative mt-40 justify-center p-4 space-x-4 w-full lg:flex bg-white dark:bg-gray-800 z-20 ">
+                        <button
+                            className="py-2 px-10 my-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 flex items-center font-bold text-sm"
+                        >
+                            <FontAwesomeIcon icon={faPlus} className="w-5 h-5 text-gray-500 mr-2" />
+                            New To-Do
+                        </button>
+                    </div>
                 </div>
             </aside>
-
-
-            <div className="p-4 sm:ml-64">
-                <div className="grid grid-cols-3 gap-4">
-                    {/* ... Content to add blabla ... */}
-                </div>
-                <div className="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">
-                    {/* ... Content to add blabla ... */}
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                    {/* ... Content to add blabla ... */}
-                </div>
-                <div className="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">
-                    {/* ... Content for flex item ... */}
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                    {/* ... Content to add blabla ... */}
-                </div>
-            </div>
         </>
 
 
