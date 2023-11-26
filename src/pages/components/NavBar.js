@@ -5,6 +5,7 @@ import {
   faRightFromBracket,
   faCalendar,
   faListUl,
+
 } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
 
@@ -67,7 +68,6 @@ function NavBar() {
           </div>
           <hr className="my-4 border-t border-gray-700" />
           <ul className="space-y-2 mt-4">
-           
             <li>
               <a
                 href="#"
@@ -104,6 +104,7 @@ function NavBar() {
                 <span className="ml-1 font-bold text-sm">Planned</span>
               </a>
             </li>
+
           </ul>
           <hr className="my-4 border-t border-gray-700" />
           <p className="mt-2 text-sm font-bold text-white-600">My To-Dos</p>
@@ -143,7 +144,6 @@ function NavBar() {
             </li>
           </ul>
         </div>
- 
       </aside>
     </>
   );
