@@ -4,11 +4,8 @@ import {
   faStar,
   faRightFromBracket,
   faCalendar,
-  faPlus,
   faListUl,
-  faBorderAll,
-  faCircleCheck,
-  faClipboard,
+
 } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
 
@@ -34,6 +31,12 @@ function NavBar() {
 
   return (
     <>
+      <button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar" aria-controls="default-sidebar" type="button" class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+        <span class="sr-only">Open sidebar</span>
+        <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
+        </svg>
+      </button>
       <aside
         id="default-sidebar"
         className="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
@@ -71,18 +74,6 @@ function NavBar() {
                 className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
                 <FontAwesomeIcon
-                  icon={faBorderAll}
-                  className="w-6 h-6 text-gray-400 mr-2"
-                />
-                <span className="ml-1 font-bold text-sm">All</span>
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-              >
-                <FontAwesomeIcon
                   icon={faMoon}
                   className="w-6 h-6 text-gray-400 mr-2"
                 />
@@ -113,30 +104,7 @@ function NavBar() {
                 <span className="ml-1 font-bold text-sm">Planned</span>
               </a>
             </li>
-            <li>
-              <a
-                href="#"
-                className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-              >
-                <FontAwesomeIcon
-                  icon={faCircleCheck}
-                  className="w-6 h-6 text-gray-400 mr-2"
-                />
-                <span className="ml-1 font-bold text-sm">Completed</span>
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-              >
-                <FontAwesomeIcon
-                  icon={faClipboard}
-                  className="w-6 h-6 text-gray-400 mr-2"
-                />
-                <span className="ml-1 font-bold text-sm">Uncompleted</span>
-              </a>
-            </li>
+
           </ul>
           <hr className="my-4 border-t border-gray-700" />
           <p className="mt-2 text-sm font-bold text-white-600">My To-Dos</p>
@@ -175,15 +143,6 @@ function NavBar() {
               </a>
             </li>
           </ul>
-        </div>
-        <div className="fixed bottom-0 left-0 w-full bg-white  dark:bg-gray-800 dark:border-gray-700 p-3 flex justify-center">
-          <button className="py-2 px-10 my-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 flex items-center font-bold text-sm">
-            <FontAwesomeIcon
-              icon={faPlus}
-              className="w-5 h-5 text-gray-500 mr-2"
-            />
-            New To-Do
-          </button>
         </div>
       </aside>
     </>
