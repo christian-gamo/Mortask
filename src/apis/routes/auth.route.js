@@ -22,7 +22,7 @@ function login(req, res) {
         if (await bcrypt.compare(password.trim(), user.user_password)) {
           let payload = { id: user.user_id };
           let token = jwt.sign(payload, "MBOD@CDT2023");
-          res.json({ message: "Sucess", token: token, user_id: user.user_id });
+          res.json({ message: "Success", token: token, user_id: user.user_id });
           return;
         } else {
           res.status(401).json({ message: "Incorrect username or password." });
