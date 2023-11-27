@@ -16,6 +16,15 @@ CREATE TABLE `group` (
 	PRIMARY KEY (`group_id`)
 );
 
+CREATE TABLE `group_members` (
+    `group_member_id` INT NOT NULL AUTO_INCREMENT,
+    `group_id` INT NOT NULL,
+    `user_id` INT NOT NULL,
+    PRIMARY KEY (`group_member_id`),
+    FOREIGN KEY (`group_id`) REFERENCES `group`(`group_id`),
+    FOREIGN KEY (`user_id`) REFERENCES `users`(`user_id`)
+);
+
 CREATE TABLE `todoList` (
 	`todoList_id` INT NOT NULL AUTO_INCREMENT,
 	`todoList_name` varchar(50) NOT NULL,

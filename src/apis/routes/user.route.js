@@ -1,4 +1,3 @@
-// routes/your_route.js
 import express from "express";
 import User from "../models/user.model.js";
 
