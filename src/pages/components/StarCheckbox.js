@@ -3,14 +3,14 @@ import React, { useState } from 'react';
 const StarCheckbox = () => {
   const [isChecked, setIsChecked] = useState(false);
 
-  const toggleCheckbox = () => {
+  const toggleStarCheckbox = () => {
     setIsChecked(!isChecked);
   };
 
   return (
     <svg
       className={`w-6 h-6 ms-2 ${isChecked ? 'text-yellow-300' : 'text-gray-300 dark:text-gray-500'}`}
-      onClick={toggleCheckbox}
+      onClick={toggleStarCheckbox}
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       fill="currentColor"
