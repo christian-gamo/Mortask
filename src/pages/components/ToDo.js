@@ -4,17 +4,22 @@ import AddTask from './AddTask';
 import DeleteTask from './DeleteTask';
 import EditTask from './EditTask';
 import ToDoItem from './ToDoItem';
-
-
+import AddToDo from './AddToDo';
+import ShareToDo from './ShareToDo';
+import EditToDo from './EditToDo';
+import DeleteToDo from './DeleteToDo';
 function ToDo() {
 
 
     return (
         <>
-
-            <AddTask />
+            <AddTask/>
+            <ShareToDo />
+            <AddToDo />
             <DeleteTask />
             <EditTask />
+            <EditToDo />
+            <DeleteToDo/>
             {/* ToDo Layout */}
             <div className="p-5 sm:ml-64">
                 <div className="px-1 sm:px-5 w-full">

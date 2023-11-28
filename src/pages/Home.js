@@ -25,7 +25,6 @@ function Home() {
       <HomeFeatures/>
       <ToDo/>
       <SpeedDial/>
-
     </div>
     </>
   );
