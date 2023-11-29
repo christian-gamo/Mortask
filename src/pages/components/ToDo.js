@@ -8,11 +8,12 @@ import AddToDo from './AddToDo';
 import ShareToDo from './ShareToDo';
 import EditToDo from './EditToDo';
 import DeleteToDo from './DeleteToDo';
+import ViewTask from './ViewTask';
+
 function ToDo() {
-
-
     return (
         <>
+            <ViewTask/>
             <AddTask/>
             <ShareToDo />
             <AddToDo />
