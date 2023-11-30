@@ -14,12 +14,8 @@ const Group = sequelize.define(
       allowNull: false,
     },
     group_master: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: false,
-    },
-    user_id: {
       type: DataTypes.INTEGER,
+      allowNull: false,
     },
   },
   { tableName: "group" }

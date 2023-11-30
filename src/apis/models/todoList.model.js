@@ -17,13 +17,9 @@ const TodoList = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    todoList_private: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: true,
-    },
-    group_id: {
+    todoList_creator: {
       type: DataTypes.INTEGER,
+      allowNull: false,
     },
   },
   { tableName: "todoList" }

@@ -27,10 +27,10 @@ const TodoItem = sequelize.define("TodoItem", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  todoItem_assigned: {
+  todoList_id: {
     type: DataTypes.INTEGER,
   },
-  todoList_id: {
+  todoItem_assigned: {
     type: DataTypes.INTEGER,
   },
 });

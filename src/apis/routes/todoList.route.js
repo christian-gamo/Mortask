@@ -15,6 +15,7 @@ const getAllTodoLists = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
 // SELECT tl.*
 // FROM todoList tl
 // JOIN `group` g ON tl.`group_id` = g.`group_id`

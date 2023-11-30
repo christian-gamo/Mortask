@@ -1,11 +1,11 @@
 import express from "express";
-import Group from "../models/group.model.js";
+import GroupMembers from "../models/group_member.model.js";
 
-const routerGroup = express.Router();
+const routerGroupMembers = express.Router();
 
-const getAllGroups = async (req, res) => {
+const getAllGroupMembers = async (req, res) => {
   try {
-    const data = await Group.findAll();
+    const data = await GroupMembers.findAll();
     res.json(data);
   } catch (error) {
     console.error(error);
@@ -13,7 +13,7 @@ const getAllGroups = async (req, res) => {
   }
 };
 
-const getGroupMasterByID = async (req, res) => {
+const getGroupMembersByGroupID = async (req, res) => {
   try {
     const groupId = req.params.groupId;
     const data = await GroupMembers.findAll({
@@ -28,6 +28,7 @@ const getGroupMasterByID = async (req, res) => {
   }
 };
 
-routerGroup.get("/group/all", getAllGroups);
+routerGroupMembers.get("/group_members/all", getAllGroupMembers);
+routerGroupMembers.get("/group_members/byGroupId", getGroupMembersByGroupID);
 
-export default routerGroup;
+export default routerGroupMembers;

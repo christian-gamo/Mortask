@@ -25,7 +25,7 @@ import User from "./models/user.model.js";
 import Group from "./models/group.model.js";
 import TodoList from "./models/todoList.model.js";
 import TodoItem from "./models/todoItem.model.js";
-import routerGroupMember from "./routes/group_member.model.js";
+import routerGroupMember from "./routes/group_members.model.js";
 import GroupMember from "./models/group_member.model.js";
 // Initialize Passport JWT Strategy for authentication
 passport.use(
