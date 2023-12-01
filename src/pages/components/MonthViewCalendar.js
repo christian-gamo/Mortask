@@ -55,6 +55,8 @@ const MonthViewCalendar = () => {
     );
   };
 
+  const emptyDayClasses = "mb-2 p-3 rounded-lg bg-gray-700 text-white hidden xl:inline-block";
+
   return (
     <div className="p-5 sm:ml-64 h-full">
       <div className="px-1 sm:px-5 w-full">
@@ -89,7 +91,7 @@ const MonthViewCalendar = () => {
             <div className="hidden xl:inline-block text-left text-white">Fri</div>
             <div className="hidden xl:inline-block text-left text-white">Sat</div>
             {daysArray.map((day, index) => (
-              <div key={index} className="mb-2 p-3 rounded-lg bg-gray-700 text-white">
+              <div key={index} className={day !== null ? "mb-2 p-3 rounded-lg bg-gray-700 text-white" : emptyDayClasses}>
                 {day !== null ? (
                   <>
                     <div className="mb-1 font-semibold">{day}</div>
