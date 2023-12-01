@@ -1,5 +1,5 @@
 import express from "express";
-import GroupMembers from "../models/group_member.model.js";
+import GroupMembers from "../models/group_members.model.js";
 
 const routerGroupMembers = express.Router();
 

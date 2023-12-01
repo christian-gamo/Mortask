@@ -2,7 +2,7 @@ import express from "express";
 import TodoList from "../models/todoList.model.js";
 import User from "../models/user.model.js";
 import Group from "../models/group.model.js";
-import GroupMember from "../models/group_member.model.js";
+import GroupMember from "../models/group_members.model.js";
 
 const routerTodoList = express.Router();
 

@@ -1,24 +1,24 @@
 import DataTypes from "sequelize";
 import sequelize from "../db.js";
 
-const Group = sequelize.define('Group', {
-  group_id: {
+const GroupMembers = sequelize.define('GroupMembers', {
+  group_members_id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
   },
-  group_name: {
-    type: DataTypes.STRING(50),
+  group_id: {
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
-  group_master: {
+  user_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
 }, 
 {
-  tableName: 'group'
+  tableName: 'group_members',
 });
 
 
-export default Group;
+export default GroupMembers;
