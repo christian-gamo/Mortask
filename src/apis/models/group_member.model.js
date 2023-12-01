@@ -1,5 +1,6 @@
 import DataTypes from "sequelize";
 import sequelize from "../db.js";
+import Group from "./group.model.js";
 
 const GroupMembers = sequelize.define("group_members",
   {
@@ -20,5 +21,8 @@ const GroupMembers = sequelize.define("group_members",
   },
   { tableName: "group_members" }
 );
+
+Group.belongsToMany(User, {through: GroupMembers});
+User.belongsToMany(Group, {through: GroupMembers});
 
 export default GroupMembers;

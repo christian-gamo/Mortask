@@ -13,6 +13,7 @@ CREATE TABLE `group` (
 	`group_name` varchar(50) NOT NULL,
 	`group_master` INT NOT NULL, --créateur/admin du groupe
 	PRIMARY KEY ('group_id'),
+
 	FOREIGN KEY('group_master') REFERENCES 'users'('user_id')
 );
 
@@ -43,7 +44,7 @@ CREATE TABLE `todoItem` (
 	`todoItem_tag` varchar(30) NOT NULL,
 	`todoItem_deadline` DATE NOT NULL,
 	`todoItem_status` varchar(30) NOT NULL,
-	`todoList_id` INT NOT,
+	`todoList_id` INT NOT NULL,
 	`todoItem_assigned` INT NOT NULL, --utilisateur privé ou ou group_member assigné
 	PRIMARY KEY (`todoItem_id`),
 	FOREIGN KEY (`todoList_id`) REFERENCES `todoList` (`todoList_id`),
@@ -60,7 +61,7 @@ CREATE TABLE 'group_todoLists' (
     `todoList_id` INT NOT NULL,
     PRIMARY KEY (`group_todoLists_id`),
     FOREIGN KEY (`group_id`) REFERENCES `group`(`group_id`),
-    FOREIGN KEY (`user_id`) REFERENCES `users`(`user_id`)
+    FOREIGN KEY (`todoList_id`) REFERENCES `todoList`(`todoList_id`)
 );
 
 
