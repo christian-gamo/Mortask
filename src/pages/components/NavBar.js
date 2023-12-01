@@ -87,7 +87,7 @@ function NavBar() {
           <ul className="space-y-2 mt-4">
             <li>
               <a
-                href="#"
+                href="/Home"
                 className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
                 <FontAwesomeIcon
@@ -99,7 +99,7 @@ function NavBar() {
             </li>
             <li>
               <a
-                href="#"
+                href="/Home"
                 className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
                 <FontAwesomeIcon
@@ -111,7 +111,7 @@ function NavBar() {
             </li>
             <li>
               <a
-                href="#"
+                href="/Planned"
                 className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
                 <FontAwesomeIcon
@@ -128,7 +128,7 @@ function NavBar() {
           <ul className="space-y-2 mt-4 overflow-y-auto">
             <li>
               <a
-                href="#"
+                href="/Home"
                 className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
                 <FontAwesomeIcon
@@ -146,7 +146,7 @@ function NavBar() {
           <ul className="space-y-2 mt-4 overflow-y-auto">
             <li>
               <a
-                href="#"
+                href="/Home"
                 className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
                 <FontAwesomeIcon

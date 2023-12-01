@@ -13,6 +13,18 @@ function HomeFeatures() {
         email: 'mortis@gmail.com',
         initials: 'MB',
     };
+
+    const getGreeting = () => {
+        const hour = new Date().getHours();
+        if (hour >= 5 && hour < 12) {
+            return 'Good Morning';
+        } else if (hour >= 12 && hour < 17) {
+            return 'Good Afternoon';
+        } else {
+            return 'Good Evening';
+        }
+    };
+
     return (
         <>
             <div className="p-3 sm:ml-64">
@@ -47,16 +59,13 @@ function HomeFeatures() {
                             src="/happy_mortis.png"
                             alt="Happy Mortis"
                         />
-                        <h1 className="mb-4 text-3xl font-extrabold tracking-tight leading-none  md:text-5xl xl:text-6xl dark:text-white md:ml-4">
-                            Good Afternoon, {mortisInfo.firstName}
+                        <h1 className="mb-4 text-3xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white md:ml-4">
+                            {getGreeting()}, {mortisInfo.firstName}
                         </h1>
                     </div>
-
                 </div>
-
             </div>
         </>
-
     );
 }
 
