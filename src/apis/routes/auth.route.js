@@ -36,7 +36,7 @@ function login(req, res) {
 }
 
 const signup = (req, res) => {
-  // Hash the password and create user in DB
+  
   bcrypt.genSalt(10, function (err, salt) {
     bcrypt.hash(req.body.user_password, salt, function (err, hash) {
       User.create({
