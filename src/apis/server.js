@@ -10,9 +10,16 @@ import routerGroup from "./routes/group.route.js";
 import routerTodoList from "./routes/todoList.route.js";
 import routerToDoItem from "./routes/todoItem.route.js";
 import User from "./models/user.model.js";
+import associations from "./associations.js"
 
 const app = express();
 const port = 2020;
+
+associations();
+// Sync Sequelize models with the database
+sequelize.sync({ force: false }).then(() => {
+  console.log("Database and tables synced");
+});
 
 app.use(express.json());
 app.use(cors());
@@ -45,6 +52,7 @@ passport.use(
   )
 );
 
+
 app.use(passport.initialize());
 
 app.use("/users", routerUser);
@@ -52,12 +60,7 @@ app.use("/group", routerGroup);
 app.use("/auth", routerAuth);
 app.use("/todoList", routerTodoList);
 app.use("/todoItem", routerToDoItem);
-app.use("/groupMember", routerGroupMember);
-
-// Sync Sequelize models with the database
-sequelize.sync({ force: false }).then(() => {
-  console.log("Database and tables synced");
-});
+//app.use("/groupMember", routerGroupMember);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);

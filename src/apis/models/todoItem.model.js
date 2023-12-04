@@ -29,6 +29,7 @@ const TodoItem = sequelize.define('TodoItem', {
   },
   todoList_id: {
     type: DataTypes.INTEGER,
+    allowNull: false,
   },
   todoItem_assigned_user: {
     type: DataTypes.INTEGER,

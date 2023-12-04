@@ -1,5 +1,5 @@
 import { DataTypes } from 'sequelize';
-import sequelize from '../config/database';
+import sequelize from "../db.js";
 
 const GroupTodoLists = sequelize.define('GroupTodoLists', {
   group_todolists_id: {
@@ -19,3 +19,5 @@ const GroupTodoLists = sequelize.define('GroupTodoLists', {
 {
   tableName: 'group_todolists',
 });
+
+export default GroupTodoLists;
