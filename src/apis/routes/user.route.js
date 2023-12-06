@@ -15,4 +15,6 @@ const getAllUsers = async (req, res) => {
 
 routerUser.get("/", getAllUsers);
 
+
+
 export default routerUser;

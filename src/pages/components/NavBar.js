@@ -7,9 +7,66 @@ import {
   faListUl,
 } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import ToDoNavBar from "./TodoNavBar";
 
 function NavBar() {
   const router = useRouter();
+  const [privateToDos, setprivateToDos] = useState([]);
+  const [publicToDos, setpublicToDos] = useState([]);
+
+  const fetchPrivateData = async () => {
+    const apiUrl = `http://localhost:2020/todoList/privateTodosForUser/${sessionStorage.getItem(
+      "user_id"
+    )}`;
+
+    try {
+      const response = await fetch(apiUrl, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const data = await response.json();
+      setprivateToDos(data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  const fetchPublicData = async () => {
+    const publicApiUrl = `http://localhost:2020/todoList/publicTodosForUser/${sessionStorage.getItem(
+      "user_id"
+    )}`;
+
+    try {
+      const response = await fetch(publicApiUrl, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const data = await response.json();
+      setpublicToDos(data);
+    } catch (error) {
+      console.error("Error fetching public data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchPrivateData();
+    fetchPublicData();
+  }, []);
 
   const Logout = () => {
     sessionStorage.removeItem("user_id");
@@ -31,7 +88,6 @@ function NavBar() {
 
   return (
     <>
-      
       <button
         data-drawer-target="default-sidebar"
         data-drawer-toggle="default-sidebar"
@@ -125,39 +181,41 @@ function NavBar() {
           <hr className="my-4 border-t border-gray-700" />
           <p className="mt-2 text-sm font-bold text-white-600">My To-Dos</p>
           {/* My To-Dos List */}
+
           <ul className="space-y-2 mt-4 overflow-y-auto">
-            <li>
-              <a
-                href="/Home"
-                className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-              >
-                <FontAwesomeIcon
-                  icon={faListUl}
-                  className="w-6 h-6 text-gray-400 mr-2"
-                />
-                <span className="ml-1 font-bold text-sm">
-                  {toDo.todoList_name}
-                </span>
-              </a>
-            </li>
+            {privateToDos.length === 0 ? (
+              <p>No private todos available</p>
+            ) : (
+              <ul className="space-y-2 mt-4 overflow-y-auto">
+                {privateToDos.map((todo) => (
+                  <ToDoNavBar
+                    key={todo.todoList_id}
+                    id={todo.todoList_id}
+                    todoList_name={todo.todoList_name}
+                    todoList_description={todo.todoList_description}
+                  />
+                ))}
+              </ul>
+            )}
           </ul>
+
           <hr className="my-4 border-t border-gray-700" />
           <p className="mt-2 text-sm font-bold text-white-600">Shared To-Dos</p>
           <ul className="space-y-2 mt-4 overflow-y-auto">
-            <li>
-              <a
-                href="/Home"
-                className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-              >
-                <FontAwesomeIcon
-                  icon={faListUl}
-                  className="w-6 h-6 text-gray-400 mr-2"
-                />
-                <span className="ml-1 font-bold text-sm">
-                  {toDo.todoList_name}
-                </span>
-              </a>
-            </li>
+            {publicToDos.length === 0 ? (
+              <p>No public todos available</p>
+            ) : (
+              <ul className="space-y-2 mt-4 overflow-y-auto">
+                {publicToDos.map((todo) => (
+                  <ToDoNavBar
+                    key={todo.todoList_id}
+                    id={todo.todoList_id}
+                    todoList_name={todo.todoList_name}
+                    todoList_description={todo.todoList_description}
+                  />
+                ))}
+              </ul>
+            )}
           </ul>
         </div>
       </aside>

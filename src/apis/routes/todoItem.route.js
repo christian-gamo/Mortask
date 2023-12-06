@@ -13,6 +13,34 @@ const getAllToDoItems = async (req, res) => {
   }
 };
 
+const createTodoItem = async (req, res) => {
+  const todoItem_name = req.body.todoItem_name;
+  const todoItem_description = req.body.todoItem_description;
+  const todoItem_tag = req.body.todoItem_tag;
+  const todoItem_deadline = req.body.todoItem_deadline;
+  const todoItem_status = req.body.todoItem_status;
+  const todoList_id = req.body.todoList_id;
+  const todoItem_assigned = req.body.todoItem_assigned_user;
+
+  try {
+    const todoItem = await TodoItem.create({
+      todoItem_name,
+      todoItem_description,
+      todoItem_tag,
+      todoItem_deadline,
+      todoItem_status,
+      todoList_id,
+      todoItem_assigned,
+    });
+
+    return res.status(201).json(todoItem);
+  } catch (error) {
+    console.error("Error while creating todoItem:", error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
 routerToDoItem.get("/", getAllToDoItems);
+routerToDoItem.post("/create", createTodoItem);
 
 export default routerToDoItem;
