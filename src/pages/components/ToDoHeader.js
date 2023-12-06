@@ -17,7 +17,7 @@ function ToDoHeader() {
                             />
                         </span>
                     </button>
-                    <button type="button" id="addTaskModalButton" data-modal-target="editToDoModal" data-modal-toggle="editToDoModal" className="px-4 py-2.5 text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 rounded-lg text-center dark:bg-purple-700 dark:hover:bg-purple-800 dark:focus:ring-purple-900 sm:w-auto">
+                    <button type="button" id="editTaskModalButton" data-modal-target="editToDoModal" data-modal-toggle="editToDoModal" className="px-4 py-2.5 text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 rounded-lg text-center dark:bg-purple-700 dark:hover:bg-purple-800 dark:focus:ring-purple-900 sm:w-auto">
                         <span className="hidden xl:inline-block">Edit to-do</span>
                         <span className="xl:hidden">
                             <FontAwesomeIcon
@@ -27,7 +27,7 @@ function ToDoHeader() {
                         </span>
                     </button>
                     
-                    <button type="button" id="addTaskModalButton" data-modal-target="deleteToDo" data-modal-toggle="deleteToDo" className="px-4 py-2.5 text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 rounded-lg text-center dark:bg-purple-700 dark:hover:bg-purple-800 dark:focus:ring-purple-900 sm:w-auto">
+                    <button type="button" id="deleteTaskModalButton" data-modal-target="deleteToDo" data-modal-toggle="deleteToDo" className="px-4 py-2.5 text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 rounded-lg text-center dark:bg-purple-700 dark:hover:bg-purple-800 dark:focus:ring-purple-900 sm:w-auto">
                         <span className="hidden xl:inline-block">Delete to-do</span>
                         <span className="xl:hidden">
                             <FontAwesomeIcon

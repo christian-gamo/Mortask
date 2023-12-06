@@ -9,7 +9,8 @@ import { useRouter } from "next/router";
 
 
 function Home() {
-  // const router = useRouter();
+  
+  //const router = useRouter();
 
   // useEffect(() => {
   //   if (sessionStorage.getItem("user_id") == null) {
