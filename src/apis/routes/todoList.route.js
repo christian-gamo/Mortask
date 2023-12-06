@@ -40,7 +40,7 @@ const createTodoList = async (req, res) => {
 };
 
 const getAllPrivateTodosByID = async (req, res) => {
-  const userId = req.body.user_id;
+  const userId = req.params.user_id;
   try {
     const todoLists = await TodoList.findAll({
       attributes: [
@@ -73,7 +73,8 @@ const getAllPrivateTodosByID = async (req, res) => {
 };
 
 const getAllPublicTodosByID = async (req, res) => {
-  const userId = req.body.user_id;
+  const userId = req.params.user_id;
+
   try {
     const todoLists = await TodoList.findAll({
       attributes: [
@@ -107,7 +108,7 @@ const getAllPublicTodosByID = async (req, res) => {
 
 routerTodoList.get("/", getAllTodoLists);
 routerTodoList.post("/create", createTodoList);
-routerTodoList.get("/privateTodosForUser", getAllPrivateTodosByID);
-routerTodoList.get("/publicTodosForUser", getAllPublicTodosByID);
+routerTodoList.get("/privateTodosForUser/:user_id", getAllPrivateTodosByID);
+routerTodoList.get("/publicTodosForUser/:user_id", getAllPublicTodosByID);
 
 export default routerTodoList;
