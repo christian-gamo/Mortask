@@ -63,8 +63,6 @@ const addGroupMember = async (req, res) => {
   }
 };
 
-
-
 routerGroupMembers.get("/all", getAllGroupMembers);
 routerGroupMembers.get("/membersByGroupId", getGroupMembersByGroupID);
 routerGroupMembers.get("/addMember", addGroupMember);
