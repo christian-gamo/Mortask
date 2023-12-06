@@ -11,7 +11,8 @@ import routerTodoList from "./routes/todoList.route.js";
 import routerToDoItem from "./routes/todoItem.route.js";
 import User from "./models/user.model.js";
 import associations from "./associations.js";
-import session from 'express-session';
+import routerGroupMembers from "./routes/group_members.route.js";
+import session from "express-session";
 
 const app = express();
 const port = 2020;
@@ -29,7 +30,6 @@ app.use(
     extended: true,
   })
 );
-
 
 // Initialize Passport JWT Strategy for authentication
 passport.use(
@@ -53,10 +53,6 @@ passport.use(
   )
 );
 
-const sessionSecret = process.env.SESSION_SECRET;
-console.log(sessionSecret);
-
-
 app.use(passport.initialize());
 
 app.use("/users", routerUser);
@@ -65,14 +61,14 @@ app.use("/groupMembers", routerGroup);
 app.use("/auth", routerAuth);
 app.use("/todoList", routerTodoList);
 app.use("/todoItem", routerToDoItem);
-//app.use("/groupMember", routerGroupMember);
+app.use("/groupMember", routerGroupMembers);
 
 app.use(
   session({
     secret: sessionSecret,
     resave: true,
     saveUninitialized: false,
-  }), 
+  })
 );
 
 app.listen(port, () => {
