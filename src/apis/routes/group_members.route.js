@@ -1,5 +1,7 @@
 import express from "express";
+import Group from "../models/group.model.js";
 import GroupMembers from "../models/group_members.model.js";
+import User from "../models/user.model.js";
 
 const routerGroupMembers = express.Router();
 
@@ -10,23 +12,6 @@ const getAllGroupMembers = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
-  }
-};
-
-const createGroupMember = async (req, res) => {
-  const group_name = req.body.group_name;
-  const group_master = req.body.group_master;
-  try {
-  
-    const group = await Group.create({
-      group_name: groupName,
-      group_master: groupMaster,
-    });
-
-    return res.json({ group });
-  } catch (error) {
-    console.error('Error creating group:', error);
-    return res.status(500).json({ error: 'Internal server error' });
   }
 };
 
@@ -47,7 +32,6 @@ const getGroupMembersByGroupID = async (req, res) => {
       return res.status(404).json({ error: 'Group not found' });
     }
 
-    User.find
     const groupMembers = group.User; // Access the associated users through the "Users" property
 
     return res.json({ groupMembers });
@@ -58,8 +42,32 @@ const getGroupMembersByGroupID = async (req, res) => {
   }
 };
 
+const addGroupMember = async (req, res) => {
+  const groupId  = req.body.group_id;
+  const memberId = req.body.user_id;
+
+  try {
+
+    const group = await Group.findByPk(groupId);
+    if (!group) {
+      return res.status(404).json({ error: 'Group not found' });
+    }
+    const member = await User.findByPk(memberId);
+    group.addUser(member);
+
+    return res.json({group});
+  } 
+  catch (error) {
+    console.error('Error :', error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+
+
 routerGroupMembers.get("/all", getAllGroupMembers);
 routerGroupMembers.get("/membersByGroupId", getGroupMembersByGroupID);
+routerGroupMembers.get("/addMember", addGroupMember);
 
 
 export default routerGroupMembers;

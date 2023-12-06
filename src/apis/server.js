@@ -61,6 +61,7 @@ app.use(passport.initialize());
 
 app.use("/users", routerUser);
 app.use("/group", routerGroup);
+app.use("/groupMembers", routerGroup);
 app.use("/auth", routerAuth);
 app.use("/todoList", routerTodoList);
 app.use("/todoItem", routerToDoItem);

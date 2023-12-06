@@ -1,6 +1,7 @@
 import express from "express";
 import Group from "../models/group.model.js";
 import GroupMembers from "../models/group_members.model.js";
+import User from "../models/user.model.js";
 
 const routerGroup = express.Router();
 
@@ -16,9 +17,13 @@ const getAllGroups = async (req, res) => {
 const createGroup = async (req, res) => {
   const group_name = req.body.group_name;
   const group_master = req.body.group_master;
+  console.log("AAAAAAAA")
   try {
     const group = await Group.create({ group_name, group_master });
-    
+    const master_user = await User.findByPk(group_master);
+
+    await master_user.addGroup(group);
+
     return res.status(201).json(group);
   } 
   catch (error) {
@@ -37,7 +42,8 @@ const getGroupById = async (groupId) => {
   }
 };
 
-routerGroup.get("/group/all", getAllGroups);
-routerGroup.get("/group/create", getAllGroups);
+routerGroup.get("/all", getAllGroups);
+routerGroup.post("/create", createGroup);
+routerGroup.get("/groupById", getGroupById);
 
 export default routerGroup;
