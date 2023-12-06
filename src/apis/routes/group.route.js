@@ -1,6 +1,6 @@
 import express from "express";
 import Group from "../models/group.model.js";
-import GroupMembers from "../models/group_members.model.js";
+import GroupMembers from "../models/todoList_members.model.js";
 import User from "../models/user.model.js";
 
 const routerGroup = express.Router();

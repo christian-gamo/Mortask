@@ -1,13 +1,13 @@
 import DataTypes from "sequelize";
 import sequelize from "../db.js";
 
-const GroupMembers = sequelize.define('GroupMembers', {
-  group_members_id: {
+const TodoListMembers = sequelize.define('TodoListMembers', {
+  todoList_members_id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
   },
-  group_id: {
+  todoList_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
@@ -17,7 +17,7 @@ const GroupMembers = sequelize.define('GroupMembers', {
   },
 }, 
 {
-  tableName: 'group_members',
+  tableName: 'todoList_members',
 });
 
-export default GroupMembers;
+export default TodoListMembers;

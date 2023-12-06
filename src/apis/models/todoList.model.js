@@ -19,6 +19,11 @@ const TodoList = sequelize.define('TodoList', {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
+  todoList_isShared: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  },
 }, 
 {
   tableName: 'todoList',
