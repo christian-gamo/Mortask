@@ -20,8 +20,8 @@ const createTodoItem = async (req, res) => {
   const todoItem_deadline = req.body.todoItem_deadline;
   const todoItem_status = req.body.todoItem_status;
   const todoList_id = req.body.todoList_id;
-  const todoItem_assigned_user = req.body.todoItem_assigned_user;
-  
+  const todoItem_assigned = req.body.todoItem_assigned_user;
+
   try {
     const todoItem = await TodoItem.create({
       todoItem_name,
@@ -30,7 +30,7 @@ const createTodoItem = async (req, res) => {
       todoItem_deadline,
       todoItem_status,
       todoList_id,
-      todoItem_assigned_user
+      todoItem_assigned,
     });
 
     return res.status(201).json(todoItem);
@@ -39,7 +39,6 @@ const createTodoItem = async (req, res) => {
     return res.status(500).json({ error: "Internal Server Error" });
   }
 };
-
 
 routerToDoItem.get("/", getAllToDoItems);
 routerToDoItem.post("/create", createTodoItem);
