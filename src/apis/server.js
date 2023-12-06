@@ -10,7 +10,8 @@ import routerGroup from "./routes/group.route.js";
 import routerTodoList from "./routes/todoList.route.js";
 import routerToDoItem from "./routes/todoItem.route.js";
 import User from "./models/user.model.js";
-import associations from "./associations.js"
+import associations from "./associations.js";
+import session from 'express-session';
 
 const app = express();
 const port = 2020;
@@ -52,16 +53,28 @@ passport.use(
   )
 );
 
+const sessionSecret = process.env.SESSION_SECRET;
+console.log(sessionSecret);
+
 
 app.use(passport.initialize());
 
 app.use("/users", routerUser);
 app.use("/group", routerGroup);
+app.use("/groupMembers", routerGroup);
 app.use("/auth", routerAuth);
 app.use("/todoList", routerTodoList);
 app.use("/todoItem", routerToDoItem);
 //app.use("/groupMember", routerGroupMember);
 
+app.use(
+  session({
+    secret: sessionSecret,
+    resave: true,
+    saveUninitialized: false,
+  }), 
+);
+
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+  console.log(`Mortask listening at http://localhost:${port}`);
 });

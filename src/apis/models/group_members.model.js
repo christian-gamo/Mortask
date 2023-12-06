@@ -20,5 +20,4 @@ const GroupMembers = sequelize.define('GroupMembers', {
   tableName: 'group_members',
 });
 
-
 export default GroupMembers;
