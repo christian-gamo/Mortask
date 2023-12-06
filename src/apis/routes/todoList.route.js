@@ -39,19 +39,75 @@ const createTodoList = async (req, res) => {
   }
 };
 
-// SELECT tl.*
-// FROM todoList tl
-// JOIN `group` g ON tl.`group_id` = g.`group_id`
-// JOIN group_members gm ON g.`group_id` = gm.`group_id`
-//  WHERE gm.`user_id` = 5;
 const getAllPrivateTodosByID = async (req, res) => {
-  await await TodoList.findAll({
-    // je comprend pas sequalize deuxinner join
-  });
+  const userId = req.body.user_id;
+  try {
+    const todoLists = await TodoList.findAll({
+      attributes: [
+        "todoList_id",
+        "todoList_name",
+        "todoList_description",
+        "todoList_creator",
+        "todoList_isShared",
+      ],
+      include: [
+        {
+          model: TodoListMembers,
+          attributes: [],
+          where: { user_id: userId },
+        },
+        {
+          model: User,
+          attributes: [],
+          where: { user_id: userId },
+        },
+      ],
+      where: { todoList_isShared: false },
+    });
+
+    res.json(todoLists);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+const getAllPublicTodosByID = async (req, res) => {
+  const userId = req.body.user_id;
+  try {
+    const todoLists = await TodoList.findAll({
+      attributes: [
+        "todoList_id",
+        "todoList_name",
+        "todoList_description",
+        "todoList_creator",
+        "todoList_isShared",
+      ],
+      include: [
+        {
+          model: TodoListMembers,
+          attributes: [],
+          where: { user_id: userId },
+        },
+        {
+          model: User,
+          attributes: [],
+          where: { user_id: userId },
+        },
+      ],
+      where: { todoList_isShared: true },
+    });
+
+    res.json(todoLists);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
 };
 
 routerTodoList.get("/", getAllTodoLists);
 routerTodoList.post("/create", createTodoList);
 routerTodoList.get("/privateTodosForUser", getAllPrivateTodosByID);
+routerTodoList.get("/publicTodosForUser", getAllPublicTodosByID);
 
 export default routerTodoList;
