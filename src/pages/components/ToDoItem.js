@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import StarCheckbox from "./StarCheckbox";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 
-const ToDoItem = (props, { isChecked, onToggleCompletion }) => {
+const ToDoItem = (props, { onToggleCompletion }) => {
   const item = props.item;
   const [isChecked, setChecked] = useState(false);
 
