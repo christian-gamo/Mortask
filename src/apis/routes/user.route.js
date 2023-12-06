@@ -1,5 +1,6 @@
 import express from "express";
 import User from "../models/user.model.js";
+import cors from "cors";
 
 const routerUser = express.Router();
 
@@ -13,8 +14,11 @@ const getAllUsers = async (req, res) => {
   }
 };
 
+const getUserById = (req, res) => {
+  User.findByPk(req.params.user_id).then((user) => res.json(user));
+};
+
 routerUser.get("/", getAllUsers);
-
-
+routerUser.get("/:user_id", getUserById);
 
 export default routerUser;

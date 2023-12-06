@@ -4,14 +4,14 @@ import {
   faStar,
   faSignOutAlt,
   faCalendar,
-  faListUl,
 } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import ToDoNavBar from "./TodoNavBar";
 
-function NavBar() {
+const NavBar = (props) => {
   const router = useRouter();
+  const userData = props.userData;
   const [privateToDos, setprivateToDos] = useState([]);
   const [publicToDos, setpublicToDos] = useState([]);
 
@@ -73,19 +73,6 @@ function NavBar() {
     router.replace("/Login", { scroll: false });
   };
 
-  // Mock data for Mortis
-  const mortisInfo = {
-    firstName: "Mortis",
-    lastName: "BringerOfDoom",
-    email: "mortis@gmail.com",
-    initials: "MB",
-  };
-  // Mock data for To-do
-  const toDo = {
-    todoList_name: "Mortis Daily Tasks",
-    todoList_description: "My day",
-  };
-
   return (
     <>
       <button
@@ -118,13 +105,14 @@ function NavBar() {
         <div className="overflow-y-auto py-5 px-3 h-full bg-white border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700">
           <div className="flex items-center mb-4">
             <div className="w-10 h-10 bg-purple-700 text-white flex items-center justify-center rounded-full mr-2">
-              {mortisInfo.initials}
+              {userData.user_fname ? userData.user_fname.charAt(0) : "0"}
+              {userData.user_lname ? userData.user_lname.charAt(0) : "0"}
             </div>
             <div>
               <p className="font-bold text-sm">
-                {mortisInfo.firstName} {mortisInfo.lastName}
+                {userData.user_fname} {userData.user_lname}
               </p>
-              <p className="text-xs">{mortisInfo.email}</p>
+              <p className="text-xs">{userData.user_email}</p>
             </div>
           </div>
           <div className="flex items-center justify-center mt-4">
@@ -221,6 +209,6 @@ function NavBar() {
       </aside>
     </>
   );
-}
+};
 
 export default NavBar;

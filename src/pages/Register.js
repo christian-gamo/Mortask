@@ -45,8 +45,8 @@ function Register() {
         // to do: create session
         // push exemple entre login et register (non logged in yet) pour les empecher back jsp
         // router.push('/Home', { scroll: false })
-        router.replace("/Home", { scroll: false });
         sessionStorage.setItem("user_id", user_id);
+        router.replace("/Home", { scroll: false });
       } else {
         console.log("wrong username or pass");
       }

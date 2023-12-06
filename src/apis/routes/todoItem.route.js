@@ -1,5 +1,6 @@
 import express from "express";
 import TodoItem from "../models/todoItem.model.js";
+import TodoList from "../models/todoList.model.js";
 
 const routerToDoItem = express.Router();
 
@@ -40,7 +41,23 @@ const createTodoItem = async (req, res) => {
   }
 };
 
+const getItemsOfList = (req, res) => {
+  const todoListId = req.params.todoList_id;
+
+  TodoItem.findAll({
+    where: { todoList_id: todoListId },
+  })
+    .then((items) => {
+      res.status(200).json(items);
+    })
+    .catch((error) => {
+      console.error("Error fetching items:", error);
+      res.status(500).json({ error: "Internal server error" });
+    });
+};
+
 routerToDoItem.get("/", getAllToDoItems);
+routerToDoItem.get("/:todoList_id", getItemsOfList);
 routerToDoItem.post("/create", createTodoItem);
 
 export default routerToDoItem;

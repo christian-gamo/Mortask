@@ -24,8 +24,7 @@ function login(req, res) {
           let token = jwt.sign(payload, "MBOD@CDT2023");
 
           res.json({ message: "Success", token: token, user_id: user.user_id });
-          req.session.userId = user.user_id;
-
+          // req.session.userId = user.user_id;
           return;
         } else {
           res.status(401).json({ message: "Incorrect username or password." });
