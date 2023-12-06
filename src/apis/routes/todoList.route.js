@@ -3,7 +3,6 @@ import TodoList from "../models/todoList.model.js";
 import User from "../models/user.model.js";
 import TodoListMembers from "../models/todoList_members.model.js";
 
-
 const routerTodoList = express.Router();
 
 const getAllTodoLists = async (req, res) => {
@@ -21,23 +20,22 @@ const createTodoList = async (req, res) => {
   const todoList_description = req.body.todoList_description;
   const todoList_creator = req.body.todoList_creator;
   const todoList_isShared = false;
-  console.log("AAAAAAAAAAAAA")
+  console.log("AAAAAAAAAAAAA");
   try {
-    const todoList = await TodoList.create({ 
-      todoList_name, 
+    const todoList = await TodoList.create({
+      todoList_name,
       todoList_description,
       todoList_creator,
-      todoList_isShared
+      todoList_isShared,
     });
     const creator = await User.findByPk(todoList_creator);
 
-    await creator.addGroup(todoList);
+    await creator.addTodoList(todoList);
 
     return res.status(201).json(todoList);
-  } 
-  catch (error) {
-    console.error('Error while creating todoList:', error);
-    return res.status(500).json({ error: 'Internal Server Error' });
+  } catch (error) {
+    console.error("Error while creating todoList:", error);
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 };
 

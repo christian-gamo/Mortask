@@ -8,7 +8,7 @@ import routerUser from "./routes/user.route.js";
 import routerAuth from "./routes/auth.route.js";
 import routerTodoList from "./routes/todoList.route.js";
 import routerToDoItem from "./routes/todoItem.route.js";
-import routeTodoListMembers from "./routes/todoListMembers.route.js";
+//import routeTodoListMembers from "./routes/todoListMembers.route.js";
 import associations from "./associations.js";
 import session from "express-session";
 import User from "./models/user.model.js";
@@ -58,15 +58,15 @@ app.use("/users", routerUser);
 app.use("/auth", routerAuth);
 app.use("/todoList", routerTodoList);
 app.use("/todoItem", routerToDoItem);
-app.use("/todoListMembers", routeTodoListMembers);
+//app.use("/todoListMembers", routeTodoListMembers);
 
-app.use(
-  session({
-    secret: sessionSecret,
-    resave: true,
-    saveUninitialized: false,
-  })
-);
+// app.use(
+//   session({
+//     secret: sessionSecret,
+//     resave: true,
+//     saveUninitialized: false,
+//   })
+// );
 
 app.listen(port, () => {
   console.log(`Mortask listening at http://localhost:${port}`);
