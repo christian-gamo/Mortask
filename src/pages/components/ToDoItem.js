@@ -5,6 +5,11 @@ import { faTrash, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 
 const ToDoItem = (props, { isChecked, onToggleCompletion }) => {
   const item = props.item;
+  const [isChecked, setChecked] = useState(false);
+
+  const toggleTaskTextDecoration = () => {
+    setChecked(!isChecked);
+  };
   return (
     <>
       <div className="mt-2">

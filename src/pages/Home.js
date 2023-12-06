@@ -6,7 +6,7 @@ import SpeedDial from "./components/SpeedDial";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 
-const Home = () => {
+function Home() {
   const router = useRouter();
   const [userData, setUserData] = useState({});
 
@@ -52,6 +52,6 @@ const Home = () => {
       </div>
     </>
   );
-};
+}
 
 export default Home;
