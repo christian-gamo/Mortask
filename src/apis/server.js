@@ -6,13 +6,12 @@ import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
 
 import routerUser from "./routes/user.route.js";
 import routerAuth from "./routes/auth.route.js";
-import routerGroup from "./routes/group.route.js";
 import routerTodoList from "./routes/todoList.route.js";
 import routerToDoItem from "./routes/todoItem.route.js";
-import User from "./models/user.model.js";
+import routeTodoListMembers from "./routes/todoListMembers.route.js";
 import associations from "./associations.js";
-import routerGroupMembers from "./routes/group_members.route.js";
 import session from "express-session";
+import User from "./models/user.model.js";
 
 const app = express();
 const port = 2020;
@@ -56,12 +55,10 @@ passport.use(
 app.use(passport.initialize());
 
 app.use("/users", routerUser);
-app.use("/group", routerGroup);
-app.use("/groupMembers", routerGroup);
 app.use("/auth", routerAuth);
 app.use("/todoList", routerTodoList);
 app.use("/todoItem", routerToDoItem);
-app.use("/groupMember", routerGroupMembers);
+app.use("/todoListMembers", routeTodoListMembers);
 
 app.use(
   session({
