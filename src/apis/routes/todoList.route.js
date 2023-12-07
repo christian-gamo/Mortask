@@ -51,16 +51,11 @@ const getAllPrivateTodosByID = async (req, res) => {
         "todoList_isShared",
       ],
       include: [
-        {
-          model: TodoListMembers,
-          attributes: [],
-          where: { user_id: userId },
-        },
-        {
+        {  
           model: User,
           attributes: [],
-          where: { user_id: userId },
-        },
+          where: { user_id: userId }
+        }
       ],
       where: { todoList_isShared: false },
     });
@@ -74,7 +69,6 @@ const getAllPrivateTodosByID = async (req, res) => {
 
 const getAllPublicTodosByID = async (req, res) => {
   const userId = req.params.user_id;
-
   try {
     const todoLists = await TodoList.findAll({
       attributes: [
@@ -85,16 +79,11 @@ const getAllPublicTodosByID = async (req, res) => {
         "todoList_isShared",
       ],
       include: [
-        {
-          model: TodoListMembers,
-          attributes: [],
-          where: { user_id: userId },
-        },
-        {
+        {  
           model: User,
           attributes: [],
-          where: { user_id: userId },
-        },
+          where: { user_id: userId }
+        }
       ],
       where: { todoList_isShared: true },
     });

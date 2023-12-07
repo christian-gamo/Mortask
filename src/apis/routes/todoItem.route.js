@@ -41,6 +41,26 @@ const createTodoItem = async (req, res) => {
   }
 };
 
+const assignUser = async (req, res) => {
+  const todoItemId  = req.body.todoItem_id;
+  const userId = req.body.user_id;
+
+  try {
+    const todoItem = await TodoItem.findByPk(todoItemId);
+    if (!todoItem) {
+      return res.status(404).json({ error: 'todoList not found' });
+    }
+    const user = await User.findByPk(userId);
+    todoItem.addUser(user);
+
+    return res.json({todoItem});
+  } 
+  catch (error) {
+    console.error('Error :', error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
 const getItemsOfList = (req, res) => {
   const todoListId = req.params.todoList_id;
 

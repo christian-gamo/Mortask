@@ -16,5 +16,6 @@ const getAllTodoListsMembers = async (req, res) => {
 };
 
 
+
 routerTodoList.get("/", getAllTodoListsMembers);
 export default routerTodoListMembers;
