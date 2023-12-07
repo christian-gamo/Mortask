@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from "react";
 import ToDoHeader from "./ToDoHeader";
-import AddTask from "./AddTask";
-import DeleteTask from "./DeleteTask";
-import EditTask from "./EditTask";
 import ToDoItem from "./ToDoItem";
 import AddToDo from "./AddToDo";
 import ShareToDo from "./ShareToDo";
-import EditToDo from "./EditToDo";
-import DeleteToDo from "./DeleteToDo";
 import ViewTask from "./ViewTask";
 
 const ToDo = () => {
@@ -82,14 +77,8 @@ const ToDo = () => {
   return (
     <>
       <ViewTask />
-      <AddTask />
       <ShareToDo />
       <AddToDo />
-      <DeleteTask />
-      <EditTask />
-      <EditToDo />
-      <DeleteToDo />
-      {/* ToDo Layout */}
       <div className="p-5 sm:ml-64">
         <div className="px-1 sm:px-5 w-full">
           <div className="w-full mt-7 p-5 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 dark:bg-gray-800 dark:border-gray-700">
