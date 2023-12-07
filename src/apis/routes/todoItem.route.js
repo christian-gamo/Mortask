@@ -21,7 +21,7 @@ const createTodoItem = async (req, res) => {
   const todoItem_deadline = req.body.todoItem_deadline;
   const todoItem_status = req.body.todoItem_status;
   const todoList_id = req.body.todoList_id;
-  const todoItem_assigned = req.body.todoItem_assigned_user;
+  const todoItem_assigned = req.body.todoItem_assigned;
 
   try {
     const todoItem = await TodoItem.create({
