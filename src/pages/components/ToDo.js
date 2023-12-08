@@ -3,7 +3,7 @@ import ToDoHeader from "./ToDoHeader";
 import ToDoItem from "./ToDoItem";
 import AddToDo from "./AddToDo";
 import ShareToDo from "./ShareToDo";
-import ViewTask from "./ViewTask";
+
 
 const ToDo = (props) => {
   let todoListId = "";
@@ -83,7 +83,6 @@ const ToDo = (props) => {
 
   return (
     <>
-      <ViewTask />
       <ShareToDo />
       <AddToDo />
       <div className="p-5 sm:ml-64">
