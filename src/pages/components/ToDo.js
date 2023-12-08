@@ -11,7 +11,7 @@ const ToDo = () => {
   const [showCompletedSection, setShowCompletedSection] = useState(false);
 
   const getListItems = async () => {
-    const apiUrl = `http://localhost:2020/todoItem/${todoListId}`;
+    const apiUrl = `http://localhost:2020/todoTask/${todoListId}`;
 
     try {
       const response = await fetch(apiUrl, {

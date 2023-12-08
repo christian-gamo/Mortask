@@ -129,8 +129,24 @@ const getTasksOfList = (req, res) => {
     });
 };
 
+const getTasksForUser = (req, res) => {
+  const todoTask_assigned = req.params.todoTask_assigned;
+
+  TodoTask.findAll({
+    where: { todoTask_assigned: todoTask_assigned },
+  })
+    .then((Tasks) => {
+      res.status(200).json(Tasks);
+    })
+    .catch((error) => {
+      console.error("Error fetching Tasks:", error);
+      res.status(500).json({ error: "Internal server error" });
+    });
+};
+
 routerToDoTask.get("/", getAllToDoTasks);
 routerToDoTask.get("/:todoList_id", getTasksOfList);
+routerToDoTask.get("/user/:todoTask_assigned", getTasksForUser);
 routerToDoTask.post("/create", createTodoTask);
 routerToDoTask.post("/edit", editTodoTask);
 routerToDoTask.post("/delete", deleteTodoTask);
