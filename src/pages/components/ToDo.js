@@ -6,14 +6,14 @@ import ShareToDo from "./ShareToDo";
 import ViewTask from "./ViewTask";
 
 const ToDo = (props) => {
-  const [todoListId, setTodoListId] = useState("");
+  let todoListId = "";
   const [itemsData, setItemsData] = useState([]);
   const [showCompletedSection, setShowCompletedSection] = useState(false);
   const publicToDos = props.publicToDos;
   const privateToDos = props.privateToDos;
+
   const getListItems = async () => {
     const apiUrl = `http://localhost:2020/todoTask/${todoListId}`;
-
     try {
       const response = await fetch(apiUrl, {
         method: "GET",
@@ -34,12 +34,17 @@ const ToDo = (props) => {
   };
 
   useEffect(() => {
-    const url = new URL(window.location.href);
-    const todoListIdParam = url.searchParams.get("todoTask_id");
-    setTodoListId(todoListIdParam);
     setItemsData([]);
-    getListItems();
-  }, [todoListId]);
+    const url = new URL(window.location.href);
+    const todoListIdParam = url.searchParams.get("todoList_id");
+
+    if (todoListIdParam != null && todoListIdParam !== "") {
+      todoListId = todoListIdParam.toString();
+      if (todoListId !== "") {
+        getListItems();
+      }
+    }
+  }, []);
 
   const handleToggleCompletion = (id) => {
     setItemsData((prevItems) =>

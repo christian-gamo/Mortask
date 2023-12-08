@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 const MonthViewCalendar = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
@@ -20,8 +20,15 @@ const MonthViewCalendar = () => {
     return new Date(year, month + 1, 0).getDate();
   };
 
-  const startDay = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1).getDay();
-  const totalDays = getDaysInMonth(currentMonth.getMonth(), currentMonth.getFullYear());
+  const startDay = new Date(
+    currentMonth.getFullYear(),
+    currentMonth.getMonth(),
+    1
+  ).getDay();
+  const totalDays = getDaysInMonth(
+    currentMonth.getMonth(),
+    currentMonth.getFullYear()
+  );
 
   const daysArray = Array.from({ length: startDay }, (_, i) => null);
   const daysOfMonth = Array.from({ length: totalDays }, (_, i) => i + 1);
@@ -51,27 +58,31 @@ const MonthViewCalendar = () => {
     );
   };
 
-  const emptyDayClasses = "mb-2 p-3 rounded-lg bg-gray-700 text-white hidden xl:inline-block";
+  const emptyDayClasses =
+    "mb-2 p-3 rounded-lg bg-gray-700 text-white hidden xl:inline-block";
 
   useEffect(() => {
     const fetchTasksForUser = async () => {
       try {
         const userId = sessionStorage.getItem("user_id");
-        const response = await fetch(`http://localhost:2020/todoTask/user/${userId}`);
-        
+        const response = await fetch(
+          `http://localhost:2020/todoTask/user/${userId}`
+        );
+        console.log(`http://localhost:2020/todoTask/user/${userId}`);
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error("Network response was not ok");
         }
 
         const data = await response.json();
         setTasksForUser(data);
+        console.log(data);
       } catch (error) {
-        console.error('Error fetching tasks for user:', error);
+        console.error("Error fetching tasks for user:", error);
       }
     };
 
     fetchTasksForUser();
-  }, [currentMonth]); 
+  }, [currentMonth]);
 
   return (
     <div className="p-5 sm:ml-64 h-full">
@@ -87,7 +98,10 @@ const MonthViewCalendar = () => {
               </button>
             </div>
             <h2 className="text-xl font-bold text-white">
-              {currentMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+              {currentMonth.toLocaleDateString("en-US", {
+                month: "long",
+                year: "numeric",
+              })}
             </h2>
             <div>
               <button
@@ -99,15 +113,36 @@ const MonthViewCalendar = () => {
             </div>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-7 gap-2">
-            <div className="hidden xl:inline-block text-left text-white">Sun</div>
-            <div className="hidden xl:inline-block text-left text-white">Mon</div>
-            <div className="hidden xl:inline-block text-left text-white">Tue</div>
-            <div className="hidden xl:inline-block text-left text-white">Wed</div>
-            <div className="hidden xl:inline-block text-left text-white">Thu</div>
-            <div className="hidden xl:inline-block text-left text-white">Fri</div>
-            <div className="hidden xl:inline-block text-left text-white">Sat</div>
+            <div className="hidden xl:inline-block text-left text-white">
+              Sun
+            </div>
+            <div className="hidden xl:inline-block text-left text-white">
+              Mon
+            </div>
+            <div className="hidden xl:inline-block text-left text-white">
+              Tue
+            </div>
+            <div className="hidden xl:inline-block text-left text-white">
+              Wed
+            </div>
+            <div className="hidden xl:inline-block text-left text-white">
+              Thu
+            </div>
+            <div className="hidden xl:inline-block text-left text-white">
+              Fri
+            </div>
+            <div className="hidden xl:inline-block text-left text-white">
+              Sat
+            </div>
             {daysArray.map((day, index) => (
-              <div key={index} className={day !== null ? "mb-2 p-3 rounded-lg bg-gray-700 text-white" : emptyDayClasses}>
+              <div
+                key={index}
+                className={
+                  day !== null
+                    ? "mb-2 p-3 rounded-lg bg-gray-700 text-white"
+                    : emptyDayClasses
+                }
+              >
                 {day !== null ? (
                   <>
                     <div className="mb-1 font-semibold">{day}</div>
@@ -117,7 +152,10 @@ const MonthViewCalendar = () => {
               </div>
             ))}
             {daysOfMonth.map((day, index) => (
-              <div key={index} className="mb-2 p-3 rounded-lg bg-gray-700 text-white">
+              <div
+                key={index}
+                className="mb-2 p-3 rounded-lg bg-gray-700 text-white"
+              >
                 <div className="mb-1 font-semibold">{day}</div>
                 {renderTasksForDay(day)}
               </div>
@@ -130,5 +168,3 @@ const MonthViewCalendar = () => {
 };
 
 export default MonthViewCalendar;
-
-

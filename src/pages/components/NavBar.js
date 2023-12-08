@@ -117,18 +117,19 @@ const NavBar = (props) => {
           {/* My To-Dos List */}
 
           <ul className="space-y-2 mt-4 overflow-y-auto">
-            {privateToDos.length === 0 ? (
+            {privateToDos && privateToDos.length === 0 ? (
               <p>No private todos available</p>
             ) : (
               <ul className="space-y-2 mt-4 overflow-y-auto">
-                {privateToDos.map((todo) => (
-                  <ToDoNavBar
-                    key={todo.todoList_id}
-                    id={todo.todoList_id}
-                    todoList_name={todo.todoList_name}
-                    todoList_description={todo.todoList_description}
-                  />
-                ))}
+                {privateToDos &&
+                  privateToDos.map((todo) => (
+                    <ToDoNavBar
+                      key={todo.todoList_id}
+                      id={todo.todoList_id}
+                      todoList_name={todo.todoList_name}
+                      todoList_description={todo.todoList_description}
+                    />
+                  ))}
               </ul>
             )}
           </ul>
@@ -136,18 +137,19 @@ const NavBar = (props) => {
           <hr className="my-4 border-t border-gray-700" />
           <p className="mt-2 text-sm font-bold text-white-600">Shared To-Dos</p>
           <ul className="space-y-2 mt-4 overflow-y-auto">
-            {publicToDos.length === 0 ? (
+            {publicToDos && publicToDos.length === 0 ? (
               <p>No public todos available</p>
             ) : (
               <ul className="space-y-2 mt-4 overflow-y-auto">
-                {publicToDos.map((todo) => (
-                  <ToDoNavBar
-                    key={todo.todoList_id}
-                    id={todo.todoList_id}
-                    todoList_name={todo.todoList_name}
-                    todoList_description={todo.todoList_description}
-                  />
-                ))}
+                {publicToDos &&
+                  publicToDos.map((todo) => (
+                    <ToDoNavBar
+                      key={todo.todoList_id}
+                      id={todo.todoList_id}
+                      todoList_name={todo.todoList_name}
+                      todoList_description={todo.todoList_description}
+                    />
+                  ))}
               </ul>
             )}
           </ul>
