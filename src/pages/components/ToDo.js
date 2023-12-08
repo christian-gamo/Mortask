@@ -5,11 +5,12 @@ import AddToDo from "./AddToDo";
 import ShareToDo from "./ShareToDo";
 import ViewTask from "./ViewTask";
 
-const ToDo = () => {
+const ToDo = (props) => {
   const [todoListId, setTodoListId] = useState("");
   const [itemsData, setItemsData] = useState([]);
   const [showCompletedSection, setShowCompletedSection] = useState(false);
-
+  const publicToDos = props.publicToDos;
+  const privateToDos = props.privateToDos;
   const getListItems = async () => {
     const apiUrl = `http://localhost:2020/todoTask/${todoListId}`;
 
@@ -27,6 +28,7 @@ const ToDo = () => {
 
       const data = await response.json();
       setItemsData(data);
+      console.log(data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -34,7 +36,7 @@ const ToDo = () => {
 
   useEffect(() => {
     const url = new URL(window.location.href);
-    const todoListIdParam = url.searchParams.get("todoList_id");
+    const todoListIdParam = url.searchParams.get("todoTask_id");
     setTodoListId(todoListIdParam);
     setItemsData([]);
     getListItems();
@@ -43,11 +45,11 @@ const ToDo = () => {
   const handleToggleCompletion = (id) => {
     setItemsData((prevItems) =>
       prevItems.map((item) =>
-        item.todoItem_id === id
+        item.todoTask_id === id
           ? {
               ...item,
-              todoItem_status:
-                item.todoItem_status === "completed" ? "pending" : "completed",
+              todoTask_status:
+                item.todoTask_status === "completed" ? "pending" : "completed",
             }
           : item
       )
@@ -57,8 +59,8 @@ const ToDo = () => {
   const handleMoveToCompleted = (id) => {
     setItemsData((prevItems) =>
       prevItems.map((item) =>
-        item.todoItem_id === id
-          ? { ...item, todoItem_status: "completed" }
+        item.todoTask_id === id
+          ? { ...item, todoTask_status: "completed" }
           : item
       )
     );
@@ -67,7 +69,7 @@ const ToDo = () => {
   const handleMoveToPending = (id) => {
     setItemsData((prevItems) =>
       prevItems.map((item) =>
-        item.todoItem_id === id ? { ...item, todoItem_status: "pending" } : item
+        item.todoTask_id === id ? { ...item, todoTask_status: "pending" } : item
       )
     );
   };
@@ -80,21 +82,21 @@ const ToDo = () => {
       <div className="p-5 sm:ml-64">
         <div className="px-1 sm:px-5 w-full">
           <div className="w-full mt-7 p-5 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 dark:bg-gray-800 dark:border-gray-700">
-            <ToDoHeader />
+            <ToDoHeader privateToDos={privateToDos} publicToDos={publicToDos} />
             {itemsData
-              .filter((item) => item.todoItem_status === "pending")
+              .filter((item) => item.todoTask_status === "pending")
               .map((todo) => (
                 <ToDoItem
-                  key={todo.todoItem_id}
+                  key={todo.todoTask_id}
                   item={todo}
-                  isChecked={todo.todoItem_status === "completed"}
+                  isChecked={todo.todoTask_status === "completed"}
                   onToggleCompletion={() =>
-                    handleToggleCompletion(todo.todoItem_id)
+                    handleToggleCompletion(todo.todoTask_id)
                   }
                   onMoveToCompleted={() =>
-                    handleMoveToCompleted(todo.todoItem_id)
+                    handleMoveToCompleted(todo.todoTask_id)
                   }
-                  onMoveToPending={() => handleMoveToPending(todo.todoItem_id)}
+                  onMoveToPending={() => handleMoveToPending(todo.todoTask_id)}
                 />
               ))}
             <button
@@ -110,20 +112,20 @@ const ToDo = () => {
                 className="w-full mt-2 p-5 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 dark:bg-gray-800 dark:border-gray-700"
               >
                 {itemsData
-                  .filter((item) => item.todoItem_status === "completed")
+                  .filter((item) => item.todoTask_status === "completed")
                   .map((completedItem) => (
                     <ToDoItem
-                      key={completedItem.todoItem_id}
+                      key={completedItem.todoTask_id}
                       item={completedItem}
-                      isChecked={completedItem.todoItem_status === "completed"}
+                      isChecked={completedItem.todoTask_status === "completed"}
                       onToggleCompletion={() =>
-                        handleToggleCompletion(completedItem.todoItem_id)
+                        handleToggleCompletion(completedItem.todoTask_id)
                       }
                       onMoveToCompleted={() =>
-                        handleMoveToCompleted(completedItem.todoItem_id)
+                        handleMoveToCompleted(completedItem.todoTask_id)
                       }
                       onMoveToPending={() =>
-                        handleMoveToPending(completedItem.todoItem_id)
+                        handleMoveToPending(completedItem.todoTask_id)
                       }
                     />
                   ))}
