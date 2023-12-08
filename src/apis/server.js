@@ -7,8 +7,8 @@ import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
 import routerUser from "./routes/user.route.js";
 import routerAuth from "./routes/auth.route.js";
 import routerTodoList from "./routes/todoList.route.js";
-import routerToDoItem from "./routes/todoItem.route.js";
-//import routeTodoListMembers from "./routes/todoListMembers.route.js";
+import routerToDoTask from "./routes/todoTask.route.js";
+import routerTodoListMembers from "./routes/todoListMembers.route.js";
 import associations from "./associations.js";
 import session from "express-session";
 import User from "./models/user.model.js";
@@ -57,7 +57,9 @@ app.use(passport.initialize());
 app.use("/users", routerUser);
 app.use("/auth", routerAuth);
 app.use("/todoList", routerTodoList);
-app.use("/todoItem", routerToDoItem);
+app.use("/todoTask", routerToDoTask);
+app.use("/todoListMembers", routerTodoListMembers);
+
 //app.use("/todoListMembers", routeTodoListMembers);
 
 // app.use(
