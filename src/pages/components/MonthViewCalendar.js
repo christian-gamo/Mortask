@@ -1,12 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const MonthViewCalendar = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
-  const [tasks, setTasks] = useState([
-    { date: '2023-11-08', title: "Christian's Birthday" },
-    { date: '2024-11-08', title: "Brady's DOGday" },
-    { date: '2025-11-08', title: "Monster Hunter Day" },
-  ]);
+  const [tasksForUser, setTasksForUser] = useState([]);
 
   const prevMonth = () => {
     const newMonth = new Date(currentMonth);
@@ -27,12 +23,12 @@ const MonthViewCalendar = () => {
   const startDay = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1).getDay();
   const totalDays = getDaysInMonth(currentMonth.getMonth(), currentMonth.getFullYear());
 
-  const daysArray = Array.from({ length: startDay }, (_, i) => null); 
+  const daysArray = Array.from({ length: startDay }, (_, i) => null);
   const daysOfMonth = Array.from({ length: totalDays }, (_, i) => i + 1);
 
   const renderTasksForDay = (day) => {
-    const dayTasks = tasks.filter((task) => {
-      const taskDate = new Date(task.date);
+    const dayTasks = tasksForUser.filter((task) => {
+      const taskDate = new Date(task.todoTask_deadline);
       return (
         taskDate.getDate() === day &&
         taskDate.getMonth() === currentMonth.getMonth() &&
@@ -48,7 +44,7 @@ const MonthViewCalendar = () => {
       <div className="mb-2 space-y-2">
         {dayTasks.map((task, index) => (
           <div key={index} className="p-3 rounded-lg bg-purple-700 text-white">
-            <div className="text-sm font-semibold">{task.title}</div>
+            <div className="text-sm font-semibold">{task.todoTask_name}</div>
           </div>
         ))}
       </div>
@@ -56,6 +52,26 @@ const MonthViewCalendar = () => {
   };
 
   const emptyDayClasses = "mb-2 p-3 rounded-lg bg-gray-700 text-white hidden xl:inline-block";
+
+  useEffect(() => {
+    const fetchTasksForUser = async () => {
+      try {
+        const userId = sessionStorage.getItem("user_id");
+        const response = await fetch(`http://localhost:2020/todoTask/user/${userId}`);
+        
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+        setTasksForUser(data);
+      } catch (error) {
+        console.error('Error fetching tasks for user:', error);
+      }
+    };
+
+    fetchTasksForUser();
+  }, [currentMonth]); 
 
   return (
     <div className="p-5 sm:ml-64 h-full">
@@ -114,3 +130,5 @@ const MonthViewCalendar = () => {
 };
 
 export default MonthViewCalendar;
+
+
