@@ -20,7 +20,6 @@ const createTodoList = async (req, res) => {
   const todoList_description = req.body.todoList_description;
   const todoList_creator = req.body.todoList_creator;
   const todoList_isShared = false;
-  console.log("AAAAAAAAAAAAA");
   try {
     const todoList = await TodoList.create({
       todoList_name,
@@ -39,6 +38,12 @@ const createTodoList = async (req, res) => {
   }
 };
 
+const getListById = (req, res) => {
+  TodoList.findByPk(req.params.todoList_id).then((todoList) =>
+    res.json(todoList)
+  );
+};
+
 const deleteTodoList = async (req, res) => {
   const todoListId = req.body.todoList_id;
 
@@ -48,21 +53,21 @@ const deleteTodoList = async (req, res) => {
     });
 
     if (!todoList) {
-      return res.status(404).json({ error: 'TodoList not found' });
+      return res.status(404).json({ error: "TodoList not found" });
     }
 
     await todoList.destroy();
 
-    return res.status(200).json({ message: 'TodoList deleted successfully' });
+    return res.status(200).json({ message: "TodoList deleted successfully" });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: "Internal server error" });
   }
 };
 
 const editTodoList = async (req, res) => {
-  const todoListId  = req.body.todoList_id; 
-  const {todoList_name, todoList_description } = req.body;
+  const todoListId = req.body.todoList_id;
+  const { todoList_name, todoList_description } = req.body;
 
   try {
     const todoList = await TodoList.findOne({
@@ -70,7 +75,7 @@ const editTodoList = async (req, res) => {
     });
 
     if (!todoList) {
-      return res.status(404).json({ error: 'TodoList not found' });
+      return res.status(404).json({ error: "TodoList not found" });
     }
 
     if (todoList_name) {
@@ -82,13 +87,12 @@ const editTodoList = async (req, res) => {
 
     await todoList.save();
 
-    return res.status(200).json({ message: 'TodoList updated successfully' });
+    return res.status(200).json({ message: "TodoList updated successfully" });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: "Internal server error" });
   }
 };
-
 
 const getAllPrivateTodosByID = async (req, res) => {
   const userId = req.params.user_id;
@@ -101,13 +105,11 @@ const getAllPrivateTodosByID = async (req, res) => {
         "todoList_creator",
         "todoList_isShared",
       ],
-      include: 
-        {  
-          model: User,
-          attributes: [],
-          where: { user_id: userId }
-        }
-      ,
+      include: {
+        model: User,
+        attributes: [],
+        where: { user_id: userId },
+      },
       where: { todoList_isShared: false },
     });
 
@@ -129,13 +131,11 @@ const getAllPublicTodosByID = async (req, res) => {
         "todoList_creator",
         "todoList_isShared",
       ],
-      include: 
-        {  
-          model: User,
-          attributes: [],
-          where: { user_id: userId }
-        }
-      ,
+      include: {
+        model: User,
+        attributes: [],
+        where: { user_id: userId },
+      },
       where: { todoList_isShared: true },
     });
 
@@ -147,6 +147,7 @@ const getAllPublicTodosByID = async (req, res) => {
 };
 
 routerTodoList.get("/", getAllTodoLists);
+routerTodoList.get("/:todoList_id", getListById);
 routerTodoList.post("/create", createTodoList);
 routerTodoList.post("/edit", editTodoList);
 routerTodoList.post("/delete", deleteTodoList);

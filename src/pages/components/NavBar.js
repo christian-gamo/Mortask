@@ -12,62 +12,8 @@ import ToDoNavBar from "./TodoNavBar";
 const NavBar = (props) => {
   const router = useRouter();
   const userData = props.userData;
-  const [privateToDos, setprivateToDos] = useState([]);
-  const [publicToDos, setpublicToDos] = useState([]);
-
-  const fetchPrivateData = async () => {
-    const apiUrl = `http://localhost:2020/todoList/privateTodosForUser/${sessionStorage.getItem(
-      "user_id"
-    )}`;
-
-    try {
-      const response = await fetch(apiUrl, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      const data = await response.json();
-      setprivateToDos(data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
-  const fetchPublicData = async () => {
-    const publicApiUrl = `http://localhost:2020/todoList/publicTodosForUser/${sessionStorage.getItem(
-      "user_id"
-    )}`;
-
-    try {
-      const response = await fetch(publicApiUrl, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      const data = await response.json();
-      setpublicToDos(data);
-    } catch (error) {
-      console.error("Error fetching public data:", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchPrivateData();
-    fetchPublicData();
-  }, []);
-
+  const publicToDos = props.publicToDos;
+  const privateToDos = props.privateToDos;
   const Logout = () => {
     sessionStorage.removeItem("user_id");
     router.replace("/Login", { scroll: false });
