@@ -1,31 +1,32 @@
 import DataTypes from "sequelize";
 import sequelize from "../db.js";
 
-const TodoItem = sequelize.define(
-  "TodoItem",
+const TodoTask = sequelize.define(
+  "TodoTask",
   {
-    todoItem_id: {
+    todoTask_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
-    todoItem_name: {
+    todoTask_name: {
       type: DataTypes.STRING(30),
       allowNull: false,
     },
-    todoItem_description: {
+    todoTask_description: {
       type: DataTypes.STRING(80),
       allowNull: false,
+      defaultValue: ''
     },
-    todoItem_tag: {
+    todoTask_tag: {
       type: DataTypes.STRING(30),
       allowNull: false,
     },
-    todoItem_deadline: {
+    todoTask_deadline: {
       type: DataTypes.DATE,
       allowNull: false,
     },
-    todoItem_status: {
+    todoTask_status: {
       type: DataTypes.STRING(30),
       allowNull: false,
     },
@@ -33,14 +34,19 @@ const TodoItem = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    todoItem_assigned: {
+    todoTask_assigned: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    todoTask_isImportant: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
   },
   {
-    tableName: "todoItem",
+    tableName: "todoTask",
   }
 );
 
-export default TodoItem;
+export default TodoTask;
