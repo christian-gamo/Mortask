@@ -8,7 +8,7 @@ const ToDoHeader = (props) => {
   // const publicToDos = props.publicToDos;
   // const privateToDos = props.privateToDos;
 
-  // useEffect(() => {
+  // useEffect(async () => {
   //   const url = new URL(window.location.href);
   //   const todoListIdFromUrl = url.searchParams.get("todoList_id");
 
@@ -16,7 +16,6 @@ const ToDoHeader = (props) => {
   //   const foundTodoList =
   //     publicToDos.find((list) => list.todoList_id === todoListIdFromUrl) ||
   //     privateToDos.find((list) => list.todoList_id === todoListIdFromUrl);
-
   //   setTodoList(foundTodoList);
   // }, [publicToDos, privateToDos]);
 
@@ -27,7 +26,7 @@ const ToDoHeader = (props) => {
           tabIndex="0"
           className="flex-shrink-0 focus:outline-none text-lg md:text-2xl font-bold leading-normal text-gray-800 dark:text-white mb-2 md:mb-0"
         >
-          {"AAAAAAAAAAAAAAAAAAAAA"}
+          {/* {todoList?.todoList_name} */ "aaa"}
         </p>
 
         <div className="mt-2 md:flex space-x-2 md:space-x-2 flex-col md:flex-row md:items-center">
