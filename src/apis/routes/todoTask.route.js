@@ -1,6 +1,8 @@
 import express from "express";
 import TodoTask from "../models/todoTask.model.js";
 import TodoList from "../models/todoList.model.js";
+import sequelize from "../db.js";
+import { Sequelize } from "sequelize";
 
 const routerToDoTask = express.Router();
 
@@ -143,6 +145,33 @@ const getTasksForUser = (req, res) => {
       res.status(500).json({ error: "Internal server error" });
     });
 };
+
+const getTasksForUserAndToday = async (req, res) => {
+  const { user_id } = req.params;
+
+  try {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const tasks = await TodoTask.findAll({
+      where: {
+        todoTask_assigned: user_id,
+        [sequelize.and]: Sequelize.literal(
+          `DATE(TodoTask.todoTask_deadline) = '${
+            today.toISOString().split("T")[0]
+          }'`
+        ),
+      },
+    });
+
+    res.status(200).json(tasks);
+  } catch (error) {
+    console.error("Error fetching Tasks:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+routerToDoTask.get("/user/:user_id/today", getTasksForUserAndToday);
 
 routerToDoTask.get("/", getAllToDoTasks);
 routerToDoTask.get("/:todoList_id", getTasksOfList);
