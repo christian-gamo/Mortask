@@ -7,8 +7,8 @@ import ViewTask from "./ViewTask";
 
 const ToDo = () => {
   const [todoListId, setTodoListId] = useState("");
-
   const [itemsData, setItemsData] = useState([]);
+  const [showCompletedSection, setShowCompletedSection] = useState(false);
 
   const getListItems = async () => {
     const apiUrl = `http://localhost:2020/todoItem/${todoListId}`;
@@ -27,7 +27,6 @@ const ToDo = () => {
 
       const data = await response.json();
       setItemsData(data);
-      console.log(data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -35,7 +34,6 @@ const ToDo = () => {
 
   useEffect(() => {
     const url = new URL(window.location.href);
-
     const todoListIdParam = url.searchParams.get("todoList_id");
     setTodoListId(todoListIdParam);
     setItemsData([]);
@@ -101,34 +99,36 @@ const ToDo = () => {
               ))}
             <button
               type="button"
+              onClick={() => setShowCompletedSection(!showCompletedSection)}
               className="mt-5 py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600"
-              disabled
             >
               Completed
             </button>
-            <div
-              id="completedSection"
-              className="w-full mt-2 p-5 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 dark:bg-gray-800 dark:border-gray-700"
-            >
-              {itemsData
-                .filter((item) => item.todoItem_status === "completed")
-                .map((completedItem) => (
-                  <ToDoItem
-                    key={completedItem.todoItem_id}
-                    item={completedItem}
-                    isChecked={completedItem.todoItem_status === "completed"}
-                    onToggleCompletion={() =>
-                      handleToggleCompletion(completedItem.todoItem_id)
-                    }
-                    onMoveToCompleted={() =>
-                      handleMoveToCompleted(completedItem.todoItem_id)
-                    }
-                    onMoveToPending={() =>
-                      handleMoveToPending(completedItem.todoItem_id)
-                    }
-                  />
-                ))}
-            </div>
+            {showCompletedSection && (
+              <div
+                id="completedSection"
+                className="w-full mt-2 p-5 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 dark:bg-gray-800 dark:border-gray-700"
+              >
+                {itemsData
+                  .filter((item) => item.todoItem_status === "completed")
+                  .map((completedItem) => (
+                    <ToDoItem
+                      key={completedItem.todoItem_id}
+                      item={completedItem}
+                      isChecked={completedItem.todoItem_status === "completed"}
+                      onToggleCompletion={() =>
+                        handleToggleCompletion(completedItem.todoItem_id)
+                      }
+                      onMoveToCompleted={() =>
+                        handleMoveToCompleted(completedItem.todoItem_id)
+                      }
+                      onMoveToPending={() =>
+                        handleMoveToPending(completedItem.todoItem_id)
+                      }
+                    />
+                  ))}
+              </div>
+            )}
           </div>
         </div>
       </div>
