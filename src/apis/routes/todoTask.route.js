@@ -33,7 +33,7 @@ const createTodoTask = async (req, res) => {
       todoTask_status,
       todoList_id,
       todoTask_assigned,
-      todoTask_isImportant
+      todoTask_isImportant,
     });
 
     return res.status(201).json(todoTask);
@@ -44,7 +44,7 @@ const createTodoTask = async (req, res) => {
 };
 
 const deleteTodoTask = async (req, res) => {
-  const todoTaskId  = req.body.todoTask_id; 
+  const todoTaskId = req.body.todoTask_id;
 
   try {
     const todoTask = await TodoTask.findOne({
@@ -52,23 +52,20 @@ const deleteTodoTask = async (req, res) => {
     });
 
     if (!todoTask) {
-      return res.status(404).json({ error: 'TodoTask not found' });
+      return res.status(404).json({ error: "TodoTask not found" });
     }
-
 
     await todoTask.destroy();
 
-
-    return res.status(200).json({ message: 'TodoTask deleted successfully' });
+    return res.status(200).json({ message: "TodoTask deleted successfully" });
   } catch (error) {
-
     console.error(error);
-    return res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: "Internal server error" });
   }
 };
 
 const editTodoTask = async (req, res) => {
-  const todoTaskId  = req.body.todoTask_id; 
+  const todoTaskId = req.body.todoTask_id;
   const todoTask_name = req.body.todoTask_name;
   const todoTask_description = req.body.todoTask_description;
   const todoTask_tag = req.body.todoTask_tag;
@@ -82,9 +79,8 @@ const editTodoTask = async (req, res) => {
       where: { todoTask_id: todoTaskId },
     });
 
-    
     if (!todoTask) {
-      return res.status(404).json({ error: 'TodoTask not found' });
+      return res.status(404).json({ error: "TodoTask not found" });
     }
 
     if (todoTask_name) {
@@ -111,16 +107,12 @@ const editTodoTask = async (req, res) => {
 
     await todoTask.save();
 
-    return res.status(200).json({ message: 'TodoTask updated successfully' });
+    return res.status(200).json({ message: "TodoTask updated successfully" });
   } catch (error) {
-    
     console.error(error);
-    return res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: "Internal server error" });
   }
 };
-
-
-
 
 const getTasksOfList = (req, res) => {
   const todoListId = req.params.todoList_id;
@@ -137,13 +129,11 @@ const getTasksOfList = (req, res) => {
     });
 };
 
-
-
 routerToDoTask.get("/", getAllToDoTasks);
 routerToDoTask.get("/:todoList_id", getTasksOfList);
 routerToDoTask.post("/create", createTodoTask);
 routerToDoTask.post("/edit", editTodoTask);
 routerToDoTask.post("/delete", deleteTodoTask);
-routerToDoTask.post("/assignUser", assignUser);
+//routerToDoTask.post("/assignUser", assignUser);
 
 export default routerToDoTask;

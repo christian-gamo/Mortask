@@ -105,14 +105,14 @@ const NavBar = (props) => {
         <div className="overflow-y-auto py-5 px-3 h-full bg-white border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700">
           <div className="flex items-center mb-4">
             <div className="w-10 h-10 bg-purple-700 text-white flex items-center justify-center rounded-full mr-2">
-              {userData.user_fname ? userData.user_fname.charAt(0) : "0"}
-              {userData.user_lname ? userData.user_lname.charAt(0) : "0"}
+              {userData?.user_fname ? userData.user_fname.charAt(0) : "0"}
+              {userData?.user_lname ? userData.user_lname.charAt(0) : "0"}
             </div>
             <div>
               <p className="font-bold text-sm">
-                {userData.user_fname} {userData.user_lname}
+                {userData?.user_fname} {userData?.user_lname}
               </p>
-              <p className="text-xs">{userData.user_email}</p>
+              <p className="text-xs">{userData?.user_email}</p>
             </div>
           </div>
           <div className="flex items-center justify-center mt-4">
