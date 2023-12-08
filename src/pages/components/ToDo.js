@@ -37,13 +37,16 @@ const ToDo = (props) => {
     setItemsData([]);
     const url = new URL(window.location.href);
     const todoListIdParam = url.searchParams.get("todoList_id");
-
+    // leave the comments justin
+    // if (todoListIdParam != null && todoListIdParam !== "") {
+    //todoListId = todoListIdParam.toString();
     if (todoListIdParam != null && todoListIdParam !== "") {
       todoListId = todoListIdParam.toString();
-      if (todoListId !== "") {
-        getListItems();
-      }
     }
+    // if (todoListId !== "") {
+    getListItems();
+    // }
+    // }
   }, []);
 
   const handleToggleCompletion = (id) => {
