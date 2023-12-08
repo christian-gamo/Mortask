@@ -32,12 +32,63 @@ const createTodoList = async (req, res) => {
 
     await creator.addTodoList(todoList);
 
-    return res.status(201).json(todoList);
+    return res.status(201).json(creator);
   } catch (error) {
     console.error("Error while creating todoList:", error);
     return res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+const deleteTodoList = async (req, res) => {
+  const todoListId = req.body.todoList_id;
+
+  try {
+    const todoList = await TodoList.findOne({
+      where: { todoList_id: todoListId },
+    });
+
+    if (!todoList) {
+      return res.status(404).json({ error: 'TodoList not found' });
+    }
+
+    await todoList.destroy();
+
+    return res.status(200).json({ message: 'TodoList deleted successfully' });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+const editTodoList = async (req, res) => {
+  const todoListId  = req.body.todoList_id; 
+  const {todoList_name, todoList_description } = req.body;
+
+  try {
+    const todoList = await TodoList.findOne({
+      where: { todoList_id: todoListId },
+    });
+
+    if (!todoList) {
+      return res.status(404).json({ error: 'TodoList not found' });
+    }
+
+    if (todoList_name) {
+      todoList.todoList_name = todoList_name;
+    }
+    if (todoList_description) {
+      todoList.todoList_description = todoList_description;
+    }
+
+    await todoList.save();
+
+    return res.status(200).json({ message: 'TodoList updated successfully' });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
 
 const getAllPrivateTodosByID = async (req, res) => {
   const userId = req.params.user_id;
@@ -50,13 +101,13 @@ const getAllPrivateTodosByID = async (req, res) => {
         "todoList_creator",
         "todoList_isShared",
       ],
-      include: [
+      include: 
         {  
           model: User,
           attributes: [],
           where: { user_id: userId }
         }
-      ],
+      ,
       where: { todoList_isShared: false },
     });
 
@@ -78,13 +129,13 @@ const getAllPublicTodosByID = async (req, res) => {
         "todoList_creator",
         "todoList_isShared",
       ],
-      include: [
+      include: 
         {  
           model: User,
           attributes: [],
           where: { user_id: userId }
         }
-      ],
+      ,
       where: { todoList_isShared: true },
     });
 
@@ -97,6 +148,8 @@ const getAllPublicTodosByID = async (req, res) => {
 
 routerTodoList.get("/", getAllTodoLists);
 routerTodoList.post("/create", createTodoList);
+routerTodoList.post("/edit", editTodoList);
+routerTodoList.post("/delete", deleteTodoList);
 routerTodoList.get("/privateTodosForUser/:user_id", getAllPrivateTodosByID);
 routerTodoList.get("/publicTodosForUser/:user_id", getAllPublicTodosByID);
 

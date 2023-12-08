@@ -57,7 +57,7 @@ const HomeFeatures = (props) => {
               alt="Happy Mortis"
             />
             <h1 className="mb-4 text-3xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white md:ml-4">
-              {getGreeting()}, {userData.user_fname}
+              {getGreeting()}, {userData?.user_fname}
             </h1>
           </div>
         </div>

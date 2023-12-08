@@ -14,6 +14,7 @@ const TodoList = sequelize.define('TodoList', {
   todoList_description: {
     type: DataTypes.STRING(50),
     allowNull: false,
+    defaultValue: '',
   },
   todoList_creator: {
     type: DataTypes.INTEGER,
