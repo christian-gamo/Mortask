@@ -1,17 +1,54 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal } from 'flowbite-react';
-import { useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 
-//push issue
-function ViewTask() {
+function ViewTask(props) {
     const [openModal, setOpenModal] = useState(false);
+    const [taskDetails, setTaskDetails] = useState({});
+    const viewedTask = props.task;
+
+    const fetchTaskDetails = async () => {
+        try {
+            const item  = props.task;
+  
+            if (item && item.todoTask_id) {
+                const toDoTaskId = item.todoTask_id;
+                const response = await fetch(`http://localhost:2020/todoTask/task/${toDoTaskId}`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
+                const data = await response.json();
+                
+                setTaskDetails(data);
+            } else {
+                console.error('Item or todoTask_id is undefined.');
+            }
+        } 
+        
+        catch (error) {
+            console.error('Error fetching task details:', error);
+        }
+    };
+    
+
+    useEffect(() => {
+        fetchTaskDetails();
+        if (openModal) {
+            fetchTaskDetails();
+            console.log("Task Details Updated:", taskDetails);
+        }
+        console.log("Task Details Updated2:", taskDetails);
+    }, [openModal]);
+
+
     return (
         <>
             <button
                 type="button"
-                onClick={() => setOpenModal(true)}
+                onClick={function(event){setOpenModal(true)}}
             >
                 <FontAwesomeIcon
                     icon={faEye}
@@ -27,47 +64,37 @@ function ViewTask() {
                             View task
                         </h3>
                     </div>
-                    <form >
+                    <form>
                         <div className="grid gap-4 mb-4 sm:grid-cols-2">
                             <div>
                                 <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                                <input type="text" name="name" id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Ex : Prepare slides" required disabled />
+                                <input type="text" name="name" id="name" value={taskDetails?.todoTask_name} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Ex : Prepare slides" required disabled />
                             </div>
                             <div className="xs:w-1/2">
                                 <label htmlFor="tag" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tag</label>
                                 <div className="flex items-center">
-                                    <input type="text" name="tag" id="tag" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Ex : PowerPoint" required disabled />
+                                    <input type="text" name="tag" id="tag" value={taskDetails?.todoTask_tag} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Ex : PowerPoint" required disabled />
                                 </div>
                             </div>
                             <div>
                                 <label htmlFor="deadline" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Deadline</label>
-                                <input datepicker type="date" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" disabled />
+                                <input type="date" value={taskDetails?.todoTask_deadline} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" disabled />
                             </div>
-
                             <div>
                                 <label htmlFor="assignee" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Assign to</label>
-                                <select name="assignee" id="assignee" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required disabled>
-                                    <option value="" disabled selected>Select assignee</option>
-                                    <option value="user1">User 1</option>
-                                    <option value="user2">User 2</option>
-                                    <option value="user3">User 3</option>
-
+                                <select name="assignee" id="assignee" value={taskDetails.User?.todoTask_assigned} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required disabled>
                                 </select>
                             </div>
                             <div className="sm:col-span-2">
                                 <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
-                                <textarea id="description" rows="4" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Ex : The presentation should last approximately 20 minutes." disabled></textarea>
+                                <textarea id="description" rows="4" value={taskDetails?.todoTask_description} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Ex : The presentation should last approximately 20 minutes." disabled></textarea>
                             </div>
                         </div>
                     </form>
                 </Modal.Body>
             </Modal>
-
-
         </>
     );
 }
 
 export default ViewTask;
-
-

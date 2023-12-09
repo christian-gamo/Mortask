@@ -85,7 +85,7 @@ const ToDoItem = (props) => {
             {item.todoTask_name}
           </p>
           <div className="ml-3 pt-1">
-            <ViewTask />
+            <ViewTask task = {item}/>
           </div>
           <div className="ml-auto px-4 py-3 flex items-center justify-end">
             <span

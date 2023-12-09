@@ -1,6 +1,7 @@
 import express from "express";
 import TodoTask from "../models/todoTask.model.js";
 import TodoList from "../models/todoList.model.js";
+import User from "../models/user.model.js";
 import sequelize from "../db.js";
 import { Sequelize } from "sequelize";
 
@@ -240,8 +241,21 @@ const toggleStatusOnClick = async (req, res) => {
   }
 };
 
-const getTaskById = (req, res) => {
-  TodoTask.findByPk(req.params.todoTask_id).then((task) => res.json(task));
+const getTaskById = async (req, res) => {
+  const todoTaskId = req.params.todoTask_id;
+  try{
+    const task = await TodoTask.findAll({
+      where: {todoTask_id: todoTaskId},
+      include: {
+        model:User
+      }
+    });
+    res.status(200).json(task);
+  }
+  catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+
 };
 
 routerToDoTask.get("/", getAllToDoTasks);
