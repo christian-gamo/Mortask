@@ -32,11 +32,38 @@ const ToDoItem = (props) => {
     }
   };
 
+  const toggleImportantApiCall = async () => {
+    const apiUrl = "http://localhost:2020/todoTask/toggleStatus";
+
+    try {
+      const response = await fetch(apiUrl, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ todoTask_id: item.todoTask_id }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const data = await response.json();
+      window.location.reload();
+      return data;
+    } catch (error) {
+      console.error("Error toggling isImportant:", error);
+    }
+  };
+
   useEffect(() => {
+    const isCompleted = item.todoTask_status === "completed" ? true : false;
+    setCompleted(isCompleted);
     getUserData();
   }, []);
 
   const onToggleCompletion = () => {
+    toggleImportantApiCall();
     setCompleted(!completed);
   };
 
@@ -48,6 +75,7 @@ const ToDoItem = (props) => {
             className="mr-3"
             id="completed"
             onChange={onToggleCompletion}
+            checked={completed}
           />
           <p
             className={`ml-3 font-semibold text-md text-gray-700 dark:text-gray-300 ${
