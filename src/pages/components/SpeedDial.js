@@ -2,7 +2,6 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faListCheck,
-  faPrint,
   faShareNodes,
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -31,23 +30,6 @@ function SpeedDial() {
             className="absolute z-10 invisible inline-block min-w-[105px] w-auto px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700"
           >
             Share To-Do
-            <div className="tooltip-arrow" data-popper-arrow></div>
-          </div>
-          <button
-            type="button"
-            data-tooltip-target="tooltip-print"
-            data-tooltip-placement="left"
-            className="flex justify-center items-center w-[52px] h-[52px] text-gray-500 hover:text-gray-900 bg-white rounded-full border border-gray-200 dark:border-gray-600 shadow-sm dark:hover:text-white dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700 dark:hover:bg-gray-600 focus:ring-4 focus:ring-gray-300 focus:outline-none dark:focus:ring-gray-400"
-          >
-            <FontAwesomeIcon icon={faPrint} className="w-5 h-5" />
-            <span className="sr-only">Print </span>
-          </button>
-          <div
-            id="tooltip-print"
-            role="tooltip"
-            className="absolute z-10 invisible inline-block min-w-[100px] w-auto px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700"
-          >
-            Print To-Do
             <div className="tooltip-arrow" data-popper-arrow></div>
           </div>
           <button
