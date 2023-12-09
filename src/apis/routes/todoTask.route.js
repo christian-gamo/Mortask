@@ -243,19 +243,17 @@ const toggleStatusOnClick = async (req, res) => {
 
 const getTaskById = async (req, res) => {
   const todoTaskId = req.params.todoTask_id;
-  try{
+  try {
     const task = await TodoTask.findAll({
-      where: {todoTask_id: todoTaskId},
+      where: { todoTask_id: todoTaskId },
       include: {
-        model:User
-      }
+        model: User,
+      },
     });
     res.status(200).json(task);
-  }
-  catch (error) {
+  } catch (error) {
     res.status(500).json({ error: "Internal server error" });
   }
-
 };
 
 routerToDoTask.get("/", getAllToDoTasks);

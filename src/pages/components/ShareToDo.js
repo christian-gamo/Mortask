@@ -84,8 +84,7 @@ const ShareToDo = (props) => {
     if (!selectedUser || !selectedToDo) {
       return;
     }
-    console.log(selectedUser);
-    console.log(selectedToDo);
+
     const apiUrl = "http://localhost:2020/TodoListMembers/create";
 
     try {

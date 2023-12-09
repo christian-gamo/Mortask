@@ -34,14 +34,10 @@ function ViewTask(props) {
   };
 
   useEffect(() => {
-    //fetchTaskDetails();
     if (openModal) {
       setTaskDetails([]);
       fetchTaskDetails();
-      //   console.log("Task Details Updated:", taskDetails);
     }
-
-    // console.log("Task Details Updated2:", taskDetails);
   }, [openModal]);
 
   return (

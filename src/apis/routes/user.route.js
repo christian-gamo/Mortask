@@ -1,6 +1,8 @@
 import express from "express";
 import User from "../models/user.model.js";
 import cors from "cors";
+import TodoListMembers from "../models/todoList_members.model.js";
+import TodoList from "../models/todoList.model.js";
 
 const routerUser = express.Router();
 
@@ -19,16 +21,10 @@ const getUserById = (req, res) => {
 };
 
 const editUser = async (req, res) => {
-  const userId  = req.body.user_id; 
+  const userId = req.body.user_id;
 
-  const {
-    user_fname,
-    user_lname,
-    user_email,
-    user_password,
-    user_status,
-  } = req.body;
-
+  const { user_fname, user_lname, user_email, user_password, user_status } =
+    req.body;
 
   try {
     const user = await User.findOne({
@@ -36,7 +32,7 @@ const editUser = async (req, res) => {
     });
 
     if (!user) {
-      return res.status(404).json({ error: 'User not found' });
+      return res.status(404).json({ error: "User not found" });
     }
 
     if (user_fname) {
@@ -57,11 +53,10 @@ const editUser = async (req, res) => {
 
     await user.save();
 
-    return res.status(200).json({ message: 'User updated successfully' });
+    return res.status(200).json({ message: "User updated successfully" });
   } catch (error) {
-    
     console.error(error);
-    return res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: "Internal server error" });
   }
 };
 
@@ -74,20 +69,17 @@ const deleteUser = async (req, res) => {
     });
 
     if (!user) {
-      return res.status(404).json({ error: 'User not found' });
+      return res.status(404).json({ error: "User not found" });
     }
 
     await user.destroy();
 
-    return res.status(200).json({ message: 'User deleted successfully' });
+    return res.status(200).json({ message: "User deleted successfully" });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: "Internal server error" });
   }
 };
-
-
-
 
 routerUser.get("/", getAllUsers);
 routerUser.get("/delete", deleteUser);
