@@ -52,9 +52,13 @@ const ToDoHeader = (props) => {
         </p>
 
         <div className="mt-2 md:flex space-x-2 md:space-x-2 flex-col md:flex-row md:items-center">
-          <AddTask />
-          <EditToDo />
-          <DeleteToDo />
+          {listData?.todoList_name && (
+            <>
+              <AddTask />
+              <EditToDo />
+              <DeleteToDo />
+            </>
+          )}
         </div>
       </div>
     </>
