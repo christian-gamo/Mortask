@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import { Tooltip } from 'flowbite-react';
 const MonthViewCalendar = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [tasksForUser, setTasksForUser] = useState([]);
@@ -49,11 +49,13 @@ const MonthViewCalendar = () => {
 
     return (
       <div className="mb-2 space-y-2">
-        {dayTasks.map((task, index) => (
-          <div key={index} className="p-3 rounded-lg bg-purple-700 text-white">
-            <div className="text-sm font-semibold">{task.todoTask_name}</div>
-          </div>
-        ))}
+        <Tooltip content="Tooltip content">
+          {dayTasks.map((task, index) => (
+            <div key={index} className="p-3 rounded-lg bg-purple-700 text-white">
+              <div className="text-sm font-semibold">{task.todoTask_name}</div>
+            </div>
+          ))}
+        </Tooltip>
       </div>
     );
   };

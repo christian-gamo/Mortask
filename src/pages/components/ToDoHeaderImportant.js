@@ -1,9 +1,4 @@
-import EditToDo from "./EditToDo";
-import DeleteToDo from "./DeleteToDo";
-import AddTask from "./AddTask";
-import { useEffect, useState } from "react";
-
-const ToDoHeaderImportnat = (props) => {
+function ToDoHeaderImportant() {
   return (
     <>
       <div className="md:pt-1 pb-5 flex flex-col md:flex-row items-start md:items-center justify-between">
@@ -13,11 +8,9 @@ const ToDoHeaderImportnat = (props) => {
         >
           {"Important"}
         </p>
-
-        
       </div>
     </>
   );
-};
+}
 
-export default ToDoHeaderImportnat;
+export default ToDoHeaderImportant;
