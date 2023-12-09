@@ -240,7 +240,12 @@ const toggleStatusOnClick = async (req, res) => {
   }
 };
 
+const getTaskById = (req, res) => {
+  TodoTask.findByPk(req.params.todoTask_id).then((task) => res.json(task));
+};
+
 routerToDoTask.get("/", getAllToDoTasks);
+routerToDoTask.get("/task/:todoTask_id", getTaskById);
 routerToDoTask.get("/:todoList_id", getTasksOfList);
 routerToDoTask.get("/user/:todoTask_assigned", getTasksForUser);
 routerToDoTask.get("/importantTasks/:user_id", getImportantTasksForUser);
