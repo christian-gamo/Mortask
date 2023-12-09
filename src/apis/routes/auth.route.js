@@ -39,7 +39,6 @@ function login(req, res) {
 
 async function signup(req, res) {
   try {
-    // check if the user already exists
     const email = req.body.user_email;
     const existingUser = await User.findOne({ where: { user_email: email } });
     if (existingUser) {

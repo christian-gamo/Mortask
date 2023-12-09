@@ -1,27 +1,24 @@
 import { useState, useEffect } from "react";
-
 import Image from "next/image";
 import Link from "next/link";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faEyeSlash, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
 
 function Register() {
+  const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
+  const [fname, setFname] = useState("");
+  const [lname, setLname] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
   useEffect(() => {
     if (sessionStorage.getItem("user_id") != null) {
       router.replace("/Home");
     }
   }, []);
-
-  const [showPassword, setShowPassword] = useState(false);
-
-  const [fname, setFname] = useState("");
-  const [lname, setLname] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const router = useRouter();
 
   const handleRegister = async () => {
     try {
@@ -42,22 +39,36 @@ function Register() {
       if (response.ok) {
         const { user_id } = await response.json();
         console.log(user_id);
-        // to do: create session
-        // push exemple entre login et register (non logged in yet) pour les empecher back jsp
-        // router.push('/Home', { scroll: false })
         sessionStorage.setItem("user_id", user_id);
         router.replace("/Home", { scroll: false });
       } else {
-        console.log("wrong username or pass");
+        const errorData = await response.json();
+        if (response.status === 400 && errorData.error === "User already exists") {
+          // Render error message for existing user
+          setErrorMessage("This user already exists, please try again");
+        } else {
+          // Handle other error cases
+          console.log("Registration failed:", errorData);
+        }
       }
     } catch (error) {
-      console.error("Error during login:", error);
+      console.error("Error during registration:", error);
     }
   };
+
   return (
     <>
-      <section className="bg-gray-50 dark:bg-gray-900">
-        <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+    <section className="bg-gray-50 dark:bg-gray-900">
+      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+        <div className="flex flex-col items-center justify-center mb-4">
+          {errorMessage && (
+            <div className="flex items-center p-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+              <FontAwesomeIcon icon={faInfoCircle} className="w-4 h-4 me-3" />
+              <span className="font-medium">Something went wrong !</span>&nbsp;
+              <p>{errorMessage}</p>
+            </div>
+          )}
+          </div>
           <a
             href="#"
             className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
@@ -174,7 +185,6 @@ function Register() {
                 </div>
                 {/* Submit Button */}
                 <button
-                  //type="submit"
                   className="w-full text-white bg-purple-600 hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-700 dark:hover:bg-purple-800 dark:focus:ring-purple-900"
                   onClick={() => handleRegister()}
                 >
