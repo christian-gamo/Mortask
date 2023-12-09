@@ -3,9 +3,9 @@ import ToDoHeader from "./ToDoHeader";
 import ToDoItem from "./ToDoItem";
 import AddToDo from "./AddToDo";
 import ShareToDo from "./ShareToDo";
+import ToDoHeaderImportnat from "./ToDoHeaderImportant";
 
-const ToDo = (props) => {
-  let todoListId = "";
+const ToDoImportant = (props) => {
   const [itemsData, setItemsData] = useState([]);
   const [showCompletedSection, setShowCompletedSection] = useState(false);
   const publicToDos = props.publicToDos;
@@ -13,10 +13,8 @@ const ToDo = (props) => {
 
   const getListItems = async () => {
     const user_id = sessionStorage.getItem("user_id");
-    const todayApiUrl = `http://localhost:2020/todoTask/user/${user_id}/today`;
-    const specificListApiUrl = `http://localhost:2020/todoTask/${todoListId}`;
+    const apiUrl = `http://localhost:2020/todoTask/importantTasks/${user_id}`;
 
-    const apiUrl = todoListId != "" ? specificListApiUrl : todayApiUrl;
     try {
       const response = await fetch(apiUrl, {
         method: "GET",
@@ -30,7 +28,6 @@ const ToDo = (props) => {
 
       const data = await response.json();
       setItemsData(data);
-      console.log(data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -38,18 +35,7 @@ const ToDo = (props) => {
 
   useEffect(() => {
     setItemsData([]);
-    const url = new URL(window.location.href);
-    const todoListIdParam = url.searchParams.get("todoList_id");
-    // leave the comments justin
-    // if (todoListIdParam != null && todoListIdParam !== "") {
-    //todoListId = todoListIdParam.toString();
-    if (todoListIdParam != null && todoListIdParam !== "") {
-      todoListId = todoListIdParam.toString();
-    }
-    // if (todoListId !== "") {
     getListItems();
-    // }
-    // }
   }, []);
 
   const handleToggleCompletion = (id) => {
@@ -91,7 +77,10 @@ const ToDo = (props) => {
       <div className="p-5 sm:ml-64">
         <div className="px-1 sm:px-5 w-full">
           <div className="w-full mt-7 p-5 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 dark:bg-gray-800 dark:border-gray-700">
-            <ToDoHeader privateToDos={privateToDos} publicToDos={publicToDos} />
+            <ToDoHeaderImportnat
+              privateToDos={privateToDos}
+              publicToDos={publicToDos}
+            />
             {itemsData.length === 0 ? <p>No Tasks Found!</p> : <div></div>}
             <br />
             {itemsData
@@ -149,4 +138,4 @@ const ToDo = (props) => {
   );
 };
 
-export default ToDo;
+export default ToDoImportant;

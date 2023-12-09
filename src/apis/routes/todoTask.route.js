@@ -172,11 +172,56 @@ const getTasksForUserAndToday = async (req, res) => {
   }
 };
 
-routerToDoTask.get("/user/:user_id/today", getTasksForUserAndToday);
+const getImportantTasksForUser = async (req, res) => {
+  const { user_id } = req.params;
+
+  try {
+    const importantTasks = await TodoTask.findAll({
+      where: {
+        todoTask_isImportant: true,
+        todoTask_assigned: user_id,
+      },
+    });
+
+    res.status(200).json(importantTasks);
+  } catch (error) {
+    console.error(`Error fetching important tasks for user ${user_id}:`, error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+const changeImportantOnClick = async (req, res) => {
+  const { todoTask_id } = req.body;
+
+  try {
+    const todoTask = await TodoTask.findByPk(todoTask_id);
+
+    if (!todoTask) {
+      return res.status(404).json({ error: "TodoTask not found" });
+    }
+
+    todoTask.todoTask_isImportant = !todoTask.todoTask_isImportant;
+
+    await todoTask.save();
+
+    res
+      .status(200)
+      .json({ message: "TodoTask isImportant toggled successfully", todoTask });
+  } catch (error) {
+    console.error(
+      `Error toggling isImportant for todoTask ${todoTask_id}:`,
+      error
+    );
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
 
 routerToDoTask.get("/", getAllToDoTasks);
 routerToDoTask.get("/:todoList_id", getTasksOfList);
 routerToDoTask.get("/user/:todoTask_assigned", getTasksForUser);
+routerToDoTask.get("/importantTasks/:user_id", getImportantTasksForUser);
+routerToDoTask.get("/user/:user_id/today", getTasksForUserAndToday);
+routerToDoTask.put("/toggleImportant/", changeImportantOnClick);
 routerToDoTask.post("/create", createTodoTask);
 routerToDoTask.post("/edit", editTodoTask);
 routerToDoTask.post("/delete", deleteTodoTask);

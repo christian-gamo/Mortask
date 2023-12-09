@@ -66,7 +66,6 @@ const ToDoItem = (props) => {
               }`}
             >
               {userData.user_fname + " " + userData.user_lname}
-              {/* need to be linked to back end, to retrieve assigned person username */}
             </span>
             <span
               className={`hidden xl:inline-block bg-pink-100 text-pink-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-pink-900 dark:text-pink-300 ${
@@ -88,7 +87,7 @@ const ToDoItem = (props) => {
                 <p>No deadline specified</p>
               )}
             </span>
-            <StarCheckbox />
+            <StarCheckbox item={item} />
             <div className="mx-3 pl-1 pt-1">
               <EditTask />
             </div>
