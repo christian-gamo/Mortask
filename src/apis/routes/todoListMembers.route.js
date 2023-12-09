@@ -41,10 +41,14 @@ const addMemberToTodoList = async (req, res) => {
       user_id: memberId,
     });
 
-    const member = await User.findByPk(userId);
+    const member = await User.findByPk(memberId);
     const todoList = await TodoList.findByPk(todoListId);
 
     await member.addTodoList(todoList);
+    if(!todoList.todoList_isShared){
+      todoList.todoList_isShared = true;
+    }
+    todoList.save();
 
     return res.status(200).json(todoListMember);
   } catch (error) {
@@ -91,5 +95,5 @@ const removeMemberFromTodoList = async (req, res) => {
 routerTodoListMembers.get("/", getAllTodoListsMembers);
 routerTodoListMembers.get("/getMembersByTodoListId", getMembersByTodoListId);
 routerTodoListMembers.get("/addUserToTodoList", addMemberToTodoList);
-routerTodoListMembers.get("/removeUserToTodoList", removeMemberFromTodoList);
+routerTodoListMembers.get("/removeUserFromTodoList", removeMemberFromTodoList);
 export default routerTodoListMembers;
