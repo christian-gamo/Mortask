@@ -68,14 +68,12 @@ const MonthViewCalendar = () => {
         const response = await fetch(
           `http://localhost:2020/todoTask/user/${userId}`
         );
-        console.log(`http://localhost:2020/todoTask/user/${userId}`);
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
 
         const data = await response.json();
         setTasksForUser(data);
-        console.log(data);
       } catch (error) {
         console.error("Error fetching tasks for user:", error);
       }
