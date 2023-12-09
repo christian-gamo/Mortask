@@ -1,4 +1,4 @@
-const ToDoHeaderImportant = (props) => {
+function ToDoHeaderImportant() {
   return (
     <>
       <div className="md:pt-1 pb-5 flex flex-col md:flex-row items-start md:items-center justify-between">
@@ -8,11 +8,9 @@ const ToDoHeaderImportant = (props) => {
         >
           {"Important"}
         </p>
-
-        
       </div>
     </>
   );
-};
+}
 
 export default ToDoHeaderImportant;
