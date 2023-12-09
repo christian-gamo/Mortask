@@ -50,7 +50,17 @@ function Login() {
   return (
     <>
       <section className="bg-gray-50 dark:bg-gray-900">
+        {/*WRONG CREDENTIALS PART*/}
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+        <div class="flex items-center p-4 mb-10 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+          <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+          </svg>
+          <span class="sr-only">Info</span>
+          <div>
+            <span class="font-medium">Something went wrong !</span> Incorrect email or password.
+          </div>
+        </div>
           <a
             href="#"
             className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
@@ -136,12 +146,6 @@ function Login() {
                     className="font-medium text-primary-600 hover:underline dark:text-primary-50"
                   >
                     Register here
-                  </Link>
-                  <Link
-                    href="#"
-                    className="font-medium text-primary-600 hover:underline dark:text-primary-50 block"
-                  >
-                    Forgot your password ?
                   </Link>
                 </p>
               </div>
