@@ -30,7 +30,6 @@ const ToDo = (props) => {
 
       const data = await response.json();
       setItemsData(data);
-      console.log(data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
