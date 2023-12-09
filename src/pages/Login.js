@@ -47,7 +47,7 @@ function Login() {
           <div className="flex flex-col items-center justify-center mb-4">
             <div className="flex items-center p-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
               <FontAwesomeIcon icon={faInfoCircle} className="w-4 h-4 me-3" />
-              <span className="font-medium">Something went wrong!</span>&nbsp;
+              <span className="font-medium">Something went wrong !</span>&nbsp;
               <p>Invalid credentials or you must register first.</p>
             </div>
           </div>
