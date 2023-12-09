@@ -151,13 +151,14 @@ const getTasksForUserAndToday = async (req, res) => {
 
   try {
     const today = new Date();
+    today.setDate(today.getDate() + 1);
     today.setHours(0, 0, 0, 0);
 
     const tasks = await TodoTask.findAll({
       where: {
         todoTask_assigned: user_id,
         [sequelize.and]: Sequelize.literal(
-          `DATE(TodoTask.todoTask_deadline) = '${
+          `DATE(CONVERT_TZ(TodoTask.todoTask_deadline, '+00:00', '+02:00')) = '${
             today.toISOString().split("T")[0]
           }'`
         ),

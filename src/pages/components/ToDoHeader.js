@@ -48,7 +48,7 @@ const ToDoHeader = (props) => {
           tabIndex="0"
           className="flex-shrink-0 focus:outline-none text-lg md:text-2xl font-bold leading-normal text-gray-800 dark:text-white mb-2 md:mb-0"
         >
-          {listData?.todoList_name}
+          {listData?.todoList_name ?? "My Day"}
         </p>
 
         <div className="mt-2 md:flex space-x-2 md:space-x-2 flex-col md:flex-row md:items-center">

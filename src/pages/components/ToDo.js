@@ -4,7 +4,6 @@ import ToDoItem from "./ToDoItem";
 import AddToDo from "./AddToDo";
 import ShareToDo from "./ShareToDo";
 
-
 const ToDo = (props) => {
   let todoListId = "";
   const [itemsData, setItemsData] = useState([]);
@@ -13,7 +12,11 @@ const ToDo = (props) => {
   const privateToDos = props.privateToDos;
 
   const getListItems = async () => {
-    const apiUrl = `http://localhost:2020/todoTask/${todoListId}`;
+    const user_id = sessionStorage.getItem("user_id");
+    const todayApiUrl = `http://localhost:2020/todoTask/user/${user_id}/today`;
+    const specificListApiUrl = `http://localhost:2020/todoTask/${todoListId}`;
+
+    const apiUrl = todoListId != "" ? specificListApiUrl : todayApiUrl;
     try {
       const response = await fetch(apiUrl, {
         method: "GET",
@@ -21,13 +24,14 @@ const ToDo = (props) => {
           "Content-Type": "application/json",
         },
       });
-
+      console.log(apiUrl);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
 
       const data = await response.json();
       setItemsData(data);
+      console.log(data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
