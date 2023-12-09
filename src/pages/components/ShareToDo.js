@@ -2,7 +2,58 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
-function ShareToDo() {
+const ShareToDo = (props) => {
+    const publicToDos = props.publicToDos;
+    const privateToDos = props.privateToDos;
+
+    const fetchPrivateData = async () => {
+        const apiUrl = `http://localhost:2020/todoList/privateTodosForUser/${sessionStorage.getItem(
+          "user_id"
+        )}`;
+    
+        try {
+          const response = await fetch(apiUrl, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+    
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+    
+          const data = await response.json();
+          setprivateToDos(data);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      };
+    
+      const fetchPublicData = async () => {
+        const publicApiUrl = `http://localhost:2020/todoList/publicTodosForUser/${sessionStorage.getItem(
+          "user_id"
+        )}`;
+    
+        try {
+          const response = await fetch(publicApiUrl, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+    
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+    
+          const data = await response.json();
+          setpublicToDos(data);
+        } catch (error) {
+          console.error("Error fetching public data:", error);
+        }
+      };
+
     return (
         <>
             {/* Share to do modal layout */}
