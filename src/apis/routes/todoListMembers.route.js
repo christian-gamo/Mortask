@@ -20,8 +20,8 @@ const getMembersByTodoListId = async (req, res) => {
   const todoListId = req.body.todoList_id;
   try {
     const todoListMembers = await TodoListMembers.findAll({
-      include: { model: User, attributes: []},
-      where: { todoList_id: todoListId }
+      include: { model: User, attributes: [] },
+      where: { todoList_id: todoListId },
     });
 
     res.json(todoListMembers);
@@ -31,9 +31,8 @@ const getMembersByTodoListId = async (req, res) => {
 };
 
 const addMemberToTodoList = async (req, res) => {
-
-  const memberId  = req.body.user_id; 
-  const todoListId  = req.body.todoList_id;
+  const memberId = req.body.user_id;
+  const todoListId = req.body.todoList_id;
 
   try {
     const todoListMember = await TodoListMembers.create({
@@ -45,7 +44,7 @@ const addMemberToTodoList = async (req, res) => {
     const todoList = await TodoList.findByPk(todoListId);
 
     await member.addTodoList(todoList);
-    if(!todoList.todoList_isShared){
+    if (!todoList.todoList_isShared) {
       todoList.todoList_isShared = true;
     }
     todoList.save();
@@ -53,17 +52,15 @@ const addMemberToTodoList = async (req, res) => {
     return res.status(200).json(todoListMember);
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: "Internal server error" });
   }
 };
 
 const removeMemberFromTodoList = async (req, res) => {
-
-  const memberId  = req.body.user_id; 
-  const todoListId  = req.body.todoList_id;
+  const memberId = req.body.user_id;
+  const todoListId = req.body.todoList_id;
 
   try {
-
     const member = await User.findByPk(memberId);
     const todoList = await TodoList.findByPk(todoListId);
 
@@ -76,8 +73,8 @@ const removeMemberFromTodoList = async (req, res) => {
       },
     });
 
-    const creator = await User.findByPk(todoList.todoList_creator)
-    
+    const creator = await User.findByPk(todoList.todoList_creator);
+
     for (const todoTask of todoTasks) {
       todoTask.todoTask_assigned = creator.user_id;
       await todoTask.save();
@@ -88,11 +85,55 @@ const removeMemberFromTodoList = async (req, res) => {
     return res.status(200).json(member);
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+const addTodoListMember = async (req, res) => {
+  const { todoList_id, user_id } = req.body;
+
+  try {
+    const existingRow = await TodoListMembers.findOne({
+      where: {
+        todoList_id: todoList_id,
+        user_id: user_id,
+      },
+    });
+
+    if (existingRow) {
+      return res.status(400).json({ error: "Row already exists" });
+    }
+
+    const todoList = await TodoList.findOne({
+      where: {
+        todoList_id: todoList_id,
+        todoList_isShared: false,
+      },
+    });
+
+    const newRowData = {
+      todoList_id: todoList_id,
+      user_id: user_id,
+    };
+
+    if (todoList) {
+      await TodoList.update(
+        { todoList_isShared: true },
+        { where: { todoList_id: todoList_id } }
+      );
+    }
+
+    const newRow = await TodoListMembers.create(newRowData);
+
+    res.status(201).json(newRow);
+  } catch (error) {
+    console.error("Error creating todoListUser:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
 routerTodoListMembers.get("/", getAllTodoListsMembers);
+routerTodoListMembers.post("/create", addTodoListMember);
 routerTodoListMembers.get("/getMembersByTodoListId", getMembersByTodoListId);
 routerTodoListMembers.get("/addUserToTodoList", addMemberToTodoList);
 routerTodoListMembers.get("/removeUserFromTodoList", removeMemberFromTodoList);
