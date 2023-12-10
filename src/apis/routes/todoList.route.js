@@ -146,8 +146,25 @@ const getAllPublicTodosByID = async (req, res) => {
   }
 };
 
+const getUsersByTodoID = async (req, res) => {
+  const { todoList_id } = req.params;
+
+  try {
+    const users = await TodoList.findAll({
+      where: { todoList_id },
+      include: [{ model: User }],
+    });
+
+    res.json(users);
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
 routerTodoList.get("/", getAllTodoLists);
 routerTodoList.get("/:todoList_id", getListById);
+routerTodoList.get("/users/:todoList_id", getUsersByTodoID);
 routerTodoList.post("/create", createTodoList);
 routerTodoList.post("/edit", editTodoList);
 routerTodoList.post("/delete", deleteTodoList);
