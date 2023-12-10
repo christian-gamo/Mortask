@@ -55,8 +55,8 @@ const ToDoHeader = (props) => {
           {listData?.todoList_name && (
             <>
               <AddTask />
-              <EditToDo />
-              <DeleteToDo />
+              <EditToDo listData={listData} />
+              <DeleteToDo listData={listData} />
             </>
           )}
         </div>
