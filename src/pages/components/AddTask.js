@@ -47,17 +47,7 @@ function AddTask() {
       if (!name || !tag || !deadline || !assignee || !description) {
         return;
       }
-      console.log(
-        name +
-          "||" +
-          tag +
-          "||" +
-          deadline +
-          "||" +
-          assignee +
-          "||" +
-          description
-      );
+
       const apiUrl = "http://localhost:2020/todotask/create/";
 
       try {
