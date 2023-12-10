@@ -42,8 +42,6 @@ const EditTask = (props) => {
     const todoListIdParam = url.searchParams.get("todoList_id");
     todoListId = todoListIdParam.toString();
     if (todoListId != "") {
-      console.log(todoListId);
-
       if (!name || !tag || !deadline || !assignee || !description) {
         return;
       }

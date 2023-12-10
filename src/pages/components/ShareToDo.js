@@ -81,6 +81,8 @@ const ShareToDo = (props) => {
   };
 
   const handleShareToDo = async () => {
+    console.log(selectedUser);
+    console.log(selectedToDo);
     if (!selectedUser || !selectedToDo) {
       return;
     }
@@ -94,11 +96,11 @@ const ShareToDo = (props) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          user_id: selectedUser,
           todoList_id: selectedToDo,
+          user_id: selectedUser,
         }),
       });
-
+      window.location.reload();
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
@@ -106,7 +108,6 @@ const ShareToDo = (props) => {
       console.error("Error sharing to-do:", error);
     }
   };
-
   useEffect(() => {
     fetchPrivateData();
     fetchPublicData();
@@ -168,6 +169,9 @@ const ShareToDo = (props) => {
                     value={selectedUser}
                     onChange={(e) => setSelectedUser(e.target.value)}
                   >
+                    <option value="" disabled selected>
+                      Select User
+                    </option>
                     {allUsers
                       .filter(
                         (user) =>
@@ -193,6 +197,9 @@ const ShareToDo = (props) => {
                     value={selectedToDo}
                     onChange={(e) => setSelectedToDo(e.target.value)}
                   >
+                    <option value="" disabled selected>
+                      Select To-Do
+                    </option>
                     <optgroup label="Private To-Dos">
                       {privateToDos.map((todo) => (
                         <option key={todo.todoList_id} value={todo.todoList_id}>
@@ -211,12 +218,12 @@ const ShareToDo = (props) => {
                   </select>
                 </div>
               </div>
-              <button
+              <input
+                type="button"
+                onClick={handleShareToDo}
                 className="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-purple-700 dark:hover:bg-purple-800 dark:focus:ring-purple-900 sm:w-auto"
-                onClick={handleShareToDo()}
-              >
-                Share to-do
-              </button>
+                value=" Share to-do"
+              />
             </form>
           </div>
         </div>
