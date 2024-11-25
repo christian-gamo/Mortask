@@ -1,4 +1,4 @@
-This is a Next.js project done by three students Darlène.S, Christian.G and myself.
+This is a Next.js project done by three students Darlène.S, Christian.G. and Taha F.
 
 ## Getting Started
 
